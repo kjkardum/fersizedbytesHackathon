@@ -54,3 +54,7 @@
 .loginbutton {
     margin: 1rem;
 }
+.titlelink {
+    text-decoration: none !important;
+    color: black;
+}

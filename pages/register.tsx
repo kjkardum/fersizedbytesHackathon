@@ -1,5 +1,9 @@
+import Head from "next/head";
+import Link from "next/link";
 import React, { useState } from "react";
 import firebase from "firebase/app";
+import styles from "../styles/Login.module.css";
+import { Button } from "react-bootstrap";
 
 import "firebase/auth";
 
@@ -14,37 +18,55 @@ function main({ Component, pageProps }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
 
     const registerHandler = () => {
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                var user = userCredential.user;
-                console.log(user);
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                alert(error.message);
-            });
+        if (repeatPassword == password) {
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    var user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(error.message);
+                });
+        }
     };
 
     return (
-        <div>
-            <p>Enter your credentials</p>
-            <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            ></input>
-            <br />
-            <input
-                value={password}
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-            ></input>
-            <br />
-            <button onClick={() => registerHandler()}>Login</button>
+        <div className={styles.container}>
+            <Head>
+                <title>Takeoff</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className={styles.main}>
+                <div className={styles.topblock}>
+                    <Link href="/">
+                        <a href="#" className={styles.titlelink}>
+                            <div className={styles.title}>Takeoff 🚀</div>
+                        </a>
+                    </Link>
+                </div>
+                <div className={styles.logindiv}>
+                    <p className={styles.title}>Enter your credentials</p>
+                    <input placeholder="Email" value={email} className={styles.logininput} onChange={(e) => setEmail(e.target.value)}></input>
+                    <br />
+                    <input placeholder="Password" value={password} className={styles.logininput} type="password" onChange={(e) => setPassword(e.target.value)}></input>
+                    <br />
+                    <input placeholder="Repeat Password" value={repeatPassword} className={styles.logininput} type="password" onChange={(e) => setRepeatPassword(e.target.value)}></input>
+                    <br />
+                    <Button className={styles.loginbutton} onClick={() => registerHandler()}>
+                        Register
+                    </Button>
+                    <Link href="/register">
+                        <a href="#">Login</a>
+                    </Link>
+                </div>
+            </main>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import Head from "next/head";
+import Link from "next/link";
 import React, { useState } from "react";
 import firebase from "firebase/app";
-import AnimatedBackground from "../components/AnimatedBackground";
 import styles from "../styles/Login.module.css";
 import { Button } from "react-bootstrap";
 
@@ -62,7 +62,11 @@ function main({ Component, pageProps }) {
             </Head>
             <main className={styles.main}>
                 <div className={styles.topblock}>
-                    <div className={styles.title}>Takeoff 🚀</div>
+                    <Link href="/">
+                        <a href="#" className={styles.titlelink}>
+                            <div className={styles.title}>Takeoff 🚀</div>
+                        </a>
+                    </Link>
                 </div>
                 <div className={styles.logindiv}>
                     <p className={styles.title}>Enter your credentials</p>
@@ -76,6 +80,9 @@ function main({ Component, pageProps }) {
                     <Button className={styles.loginbutton} onClick={() => googleLoginHandler()}>
                         Login with Google
                     </Button>
+                    <Link href="/register">
+                        <a href="#">Register</a>
+                    </Link>
                 </div>
             </main>
         </div>
