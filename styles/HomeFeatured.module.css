@@ -30,8 +30,17 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .featuredimage {
+        width: 100%;
+        margin: 0;
+    }
     .featuredimagebox {
-        display: none;
+        width: 30%;
+        align-items: center;
+        align-self: center;
+    }
+    .featureddetails {
+        width: 70%;
     }
     .featureddescription {
         display: none;
@@ -47,8 +56,9 @@
         font-size: 2rem;
     }
     .featured {
-        padding-bottom: 1rem;
+        padding-bottom: 0rem;
         position: relative;
+        flex-direction: row;
     }
     .featuredexpand {
         display: block;
