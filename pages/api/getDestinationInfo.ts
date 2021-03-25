@@ -7,13 +7,15 @@ import safeStringify from "../../util/safeStringify";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     let api = new APIWrapper();
+    const current_url = new URL("https://www.google.com" + req.url);
+
+    let q = current_url.searchParams.get("q");
 
     res.setHeader("Content-Type", "application/json");
 
-    if (req.body && req.body.length > 0) {
-        let cityCode = JSON.parse(req.body).cityCode;
-        return res.end(safeStringify((await api.GetHotelOffers(cityCode)).slice(0, 3)));
-    }
+    if (!q) return res.end({});
 
-    return res.end();
+    let result = (await api.GetHotelOffers(q)).slice(0, 3);
+
+    return res.end(safeStringify(result));
 };

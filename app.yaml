@@ -1,6 +1,6 @@
 env: standard
 runtime: nodejs12
-service: takeoff
+service: default
 
 handlers:
   - url: /.*

@@ -9,7 +9,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let api = new APIWrapper();
     res.setHeader("Content-Type", "application/json");
 
-    console.log("bod: " + req.body);
     if (req.body && req.body.length > 1) return res.end({ erorr: "No body" });
 
     let data = JSON.parse(req.body) as IFlightSearchSearch;
