@@ -9,7 +9,9 @@ const HomeContent = (props) => (
     <div className={styles.homecontent}>
         <div className={styles.featureddestinations}>Popular Destination</div>
         <HomeFeatured></HomeFeatured>
+        <hr className={styles.mobilehr}></hr>
         <HomeFeatured reverse={true}></HomeFeatured>
+        <hr className={styles.mobilehr}></hr>
         <FlightMap></FlightMap>
     </div>
 );

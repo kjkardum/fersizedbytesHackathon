@@ -5,7 +5,9 @@
     font-size: 3rem;
     margin-bottom: 2rem;
 }
-
+.mobilehr {
+    display: none;
+}
 @media only screen and (max-width: 600px) {
     .featureddestinations {
         font-size: 1.5rem;
@@ -16,5 +18,8 @@
     }
     .homecontent {
         padding: 1rem;
+    }
+    .mobilehr {
+        display: block;
     }
 }
