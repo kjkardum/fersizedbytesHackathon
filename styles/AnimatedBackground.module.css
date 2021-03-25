@@ -17,6 +17,6 @@
 }
 
 .svg {
-    animation: move 120s infinite;
+    animation: move 30s infinite;
     animation-iteration-count: infinite;
 }
