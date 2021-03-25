@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const CityContent = (props) => {
+    const [temps, setTemps] = useState(new Array(24));
     const [flightTo, setFlightTo] = useState(props.city);
     const [flightFrom, setFlightFrom] = useState("");
     const [flightDeparture, setFlightDeparture] = useState("");
@@ -30,7 +31,14 @@ const CityContent = (props) => {
                 setHotelData(data);
                 console.log(data);
                 setLoading(false);
-            });
+            })
+            .catch((err) => console.log(err));
+        fetch(`/api/weather/?q=` + props.city)
+            .then((data) => data.json())
+            .then((data) => {
+                setTemps(data);
+            })
+            .catch((err) => console.log(err));
         setLastCity(props.city);
         setCheckoutFlow("basicInfo");
         setLoading(true);
@@ -97,7 +105,20 @@ const CityContent = (props) => {
                                     </Col>
                                 ))}
                             </Row>
-                            <Line data={{ labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050] }}></Line>;
+                            <Line
+                                data={{
+                                    labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
+                                    datasets: [
+                                        {
+                                            data: temps,
+                                            label: "Temperature",
+                                            borderColor: "#3e95cd",
+                                            fill: false,
+                                        },
+                                    ],
+                                }}
+                            ></Line>
+                            ;
                         </>
                     )}
                 </>

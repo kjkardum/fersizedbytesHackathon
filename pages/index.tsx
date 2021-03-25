@@ -17,6 +17,7 @@ export default function Home() {
 
     let inputTimer;
     const [city, setCity] = useState("");
+    const [fullCity, setFullCity] = useState("");
 
     return (
         <div className={styles.container}>
