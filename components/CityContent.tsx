@@ -7,6 +7,9 @@ import "firebase/auth";
 import { firebaseConfig } from "../services/config";
 
 import { Row, Col, Form, Button } from "react-bootstrap";
+import { array } from "joi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const CityContent = (props) => {
     const [temps, setTemps] = useState(new Array(24));
@@ -16,15 +19,19 @@ const CityContent = (props) => {
     const [flightArrival, setFlightArrival] = useState("");
     const [flightQuantity, setFlightQuantity] = useState(1);
     const [checkoutFlow, setCheckoutFlow] = useState("basicInfo");
+    const [lastCity, setLastCity] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [hotelData, setHotelData] = useState([]);
+    const [reservationData, setReservationData] = useState({ list: [] });
 
-    const [hotelData, setHotelData] = useState({});
-    const [lastSearch, setLastSearch] = useState("");
-
-    if (props.city && lastSearch != props.city) {
-        setLastSearch(props.city);
+    if (props.city && props.city != lastCity) {
         fetch("/api/getDestinationInfo?q=" + props.city)
             .then((data) => data.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+                setHotelData(data);
+                console.log(data);
+                setLoading(false);
+            })
             .catch((err) => console.log(err));
         fetch(`/api/weather/?q=` + props.city)
             .then((data) => data.json())
@@ -32,8 +39,10 @@ const CityContent = (props) => {
                 setTemps(data);
             })
             .catch((err) => console.log(err));
+        setLastCity(props.city);
+        setCheckoutFlow("basicInfo");
+        setLoading(true);
     }
-
     return (
         <div className={styles.citycontent}>
             <Form
@@ -41,6 +50,9 @@ const CityContent = (props) => {
                 onSubmit={(e) => {
                     e.preventDefault();
                     setCheckoutFlow(e.nativeEvent.submitter.name);
+                    const arr = [];
+                    for (let i = 0; i < flightQuantity; i++) arr.push({});
+                    setReservationData({ list: [...arr] });
                 }}
                 action="/"
                 method="GET"
@@ -74,39 +86,51 @@ const CityContent = (props) => {
             <hr />
             {checkoutFlow == "basicInfo" && (
                 <>
-                    <div className={styles.hotelstitle}>Hotels Nearby</div>
-                    <Row>
-                        <Col md={4}>
-                            <img className={`${styles.hotelimage} bigshadow`} src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></img>
-                            <div className={styles.hoteltitle}>Hotel a</div>
-                            <div className={styles.hoteldescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas posuere tristique. In tellus massa, tempor eu tincidunt ac, ornare nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum suscipit luctus est, eu dignissim arcu efficitur non. Cras pulvinar est risus, vitae ultricies ligula fringilla vitae. Duis vitae finibus odio. Aenean vulputate dapibus eros et laoreet. Suspendisse potenti. Morbi eros nunc, rutrum fermentum gravida a, mollis auctor nisi. Ut finibus, nisl sit amet viverra faucibus, turpis leo pulvinar quam, at tempor metus erat malesuada magna. Nulla convallis, lectus et semper porttitor, enim ipsum cursus diam, eget eleifend urna tellus eu sapien. Sed sit amet mauris ac sem aliquet tincidunt. Donec in ipsum vitae quam tempor maximus sed in eros. Praesent convallis, dolor ac gravida fermentum, ante justo sollicitudin turpis, sed congue nisl sapien ac dui. Quisque dictum, augue et ornare hendrerit, eros orci tempor elit, vel fermentum ligula leo ut magna. Cras sollicitudin tellus quis ultricies rhoncus.</div>
-                        </Col>
-                        <Col md={4}>
-                            <img className={`${styles.hotelimage} bigshadow`} src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></img>
-                            <div className={styles.hoteltitle}>Hotel b</div>
-                            <div className={styles.hoteldescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas posuere tristique. In tellus massa, tempor eu tincidunt ac, ornare nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum suscipit luctus est, eu dignissim arcu efficitur non. Cras pulvinar est risus, vitae ultricies ligula fringilla vitae. Duis vitae finibus odio. Aenean vulputate dapibus eros et laoreet. Suspendisse potenti. Morbi eros nunc, rutrum fermentum gravida a, mollis auctor nisi. Ut finibus, nisl sit amet viverra faucibus, turpis leo pulvinar quam, at tempor metus erat malesuada magna. Nulla convallis, lectus et semper porttitor, enim ipsum cursus diam, eget eleifend urna tellus eu sapien. Sed sit amet mauris ac sem aliquet tincidunt. Donec in ipsum vitae quam tempor maximus sed in eros. Praesent convallis, dolor ac gravida fermentum, ante justo sollicitudin turpis, sed congue nisl sapien ac dui. Quisque dictum, augue et ornare hendrerit, eros orci tempor elit, vel fermentum ligula leo ut magna. Cras sollicitudin tellus quis ultricies rhoncus.</div>
-                        </Col>
-                        <Col md={4}>
-                            <img className={`${styles.hotelimage} bigshadow`} src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></img>
-                            <div className={styles.hoteltitle}>Hotel c</div>
-                            <div className={styles.hoteldescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas posuere tristique. In tellus massa, tempor eu tincidunt ac, ornare nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum suscipit luctus est, eu dignissim arcu efficitur non. Cras pulvinar est risus, vitae ultricies ligula fringilla vitae. Duis vitae finibus odio. Aenean vulputate dapibus eros et laoreet. Suspendisse potenti. Morbi eros nunc, rutrum fermentum gravida a, mollis auctor nisi. Ut finibus, nisl sit amet viverra faucibus, turpis leo pulvinar quam, at tempor metus erat malesuada magna. Nulla convallis, lectus et semper porttitor, enim ipsum cursus diam, eget eleifend urna tellus eu sapien. Sed sit amet mauris ac sem aliquet tincidunt. Donec in ipsum vitae quam tempor maximus sed in eros. Praesent convallis, dolor ac gravida fermentum, ante justo sollicitudin turpis, sed congue nisl sapien ac dui. Quisque dictum, augue et ornare hendrerit, eros orci tempor elit, vel fermentum ligula leo ut magna. Cras sollicitudin tellus quis ultricies rhoncus.</div>
-                        </Col>
-                    </Row>
-                    <Line
-                        data={{
-                            labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
-                            datasets: [
-                                {
-                                    data: temps,
-                                    label: "Temperature",
-                                    borderColor: "#3e95cd",
-                                    fill: false,
-                                },
-                            ],
-                        }}
-                    ></Line>
-                    ;
+                    {loading ? (
+                        <div className="loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    ) : (
+                        <>
+                            <div className={styles.hotelstitle}>Hotels Nearby</div>
+                            <Row>
+                                {hotelData.map((e, i) => (
+                                    <Col md={4} key={e.hotel.name}>
+                                        {e.hotel.media && <img className={`${styles.hotelimage} bigshadow`} src={i == 1 ? "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" : i == 2 ? "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1225&q=80" : e.hotel.media[0].uri}></img>}
+
+                                        <div className={styles.hoteltitle}>{e.hotel.name}</div>
+                                        <div className={styles.hoteldescription}>{e.offers[0].room.description.text}</div>
+                                    </Col>
+                                ))}
+                            </Row>
+                            <Line
+                                data={{
+                                    labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
+                                    datasets: [
+                                        {
+                                            data: temps,
+                                            label: "Temperature",
+                                            borderColor: "#3e95cd",
+                                            fill: false,
+                                        },
+                                    ],
+                                }}
+                            ></Line>
+                            ;
+                        </>
+                    )}
                 </>
+            )}
+            {checkoutFlow == "reservation" && (
+                <Row>
+                    {reservationData.list.map((i, item) => {
+                        <Col>
+                            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                        </Col>;
+                    })}
+                </Row>
             )}
         </div>
     );
