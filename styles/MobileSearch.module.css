@@ -40,3 +40,6 @@
         transition: 0.3s all;
     }
 }
+.reldiv {
+    position: relative;
+}

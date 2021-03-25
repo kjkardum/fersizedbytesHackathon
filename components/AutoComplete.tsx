@@ -1,8 +1,9 @@
 // Modified: https://stackoverflow.com/questions/43393136/js-create-smart-auto-complete
-
+import React from "react";
+import styles from "../styles/AutoComplete.module.css";
 import { useState } from "react";
 
-const main = (props) => {
+const AutoComplete = (props) => {
     const [cities, setCities] = useState([]);
 
     let inputValue = props.searchValue as string;
@@ -12,14 +13,17 @@ const main = (props) => {
             .then((data) => setCities(data));
 
     return (
-        <ul>
+        <ul className={`${styles.autocompletelist} bigshadow`}>
             {cities.map((el, i) => {
                 let s = matchingChars(el, inputValue);
                 return (
                     <li
+                        className={styles.autocompleteitem}
                         onClick={() => {
                             props.setCity(el);
-                            console.log(el);
+                            if (props.mobile) {
+                                props.closeMobile();
+                            }
                         }}
                         key={`li_city_${i}`}
                     >
@@ -31,7 +35,7 @@ const main = (props) => {
     );
 };
 
-export default main;
+export default AutoComplete;
 
 // Should be dp, not greedy, might change
 function matchingChars(hay: String, needle: String) {

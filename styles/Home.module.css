@@ -39,6 +39,7 @@
     transform: translate(-50%, -2rem);
     width: min-content;
     transition: height 1s ease;
+    z-index: 1;
 }
 .searchbox {
     font-size: 2rem;
