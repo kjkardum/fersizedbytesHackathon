@@ -29,7 +29,7 @@ export default function Home() {
                 </div>
                 <div className={styles.contentblock}>
                     <div className={styles.searchcontainer}>
-                        <input onChange={(e) => setSearch(e.target.value)} type="search" id="flightSearch" name="q" aria-label="Search flights" className={styles.searchbox} placeholder="Find a flight"></input>
+                        <input onChange={(e) => setSearch(e.target.value)} type="search" id="flightSearch" name="q" aria-label="Search flights" className={styles.searchbox} placeholder="Find a flight" value={search}></input>
                     </div>
                     <div>
                         <AutoComplete searchValue={search}></AutoComplete>
