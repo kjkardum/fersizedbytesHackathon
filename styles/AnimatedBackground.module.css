@@ -1,0 +1,22 @@
+@keyframes move {
+    0% {
+        transform: translate(150px, 150px);
+    }
+
+    50% {
+        transform: translate(200px, 200px);
+    }
+
+    100% {
+        transform: translate(150px, 150px);
+    }
+}
+
+.main {
+    position: relative;
+}
+
+.svg {
+    animation: move 120s infinite;
+    animation-iteration-count: infinite;
+}

@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import NavBar from "../components/NavBar";
 import HomeContent from "../components/HomeContent";
 import AutoComplete from "../components/AutoComplete";
+import AnimatedBackground from "../components/AnimatedBackground";
 
 import React, { useState } from "react";
 import { quotes } from "../services/quotes";
@@ -25,7 +26,7 @@ export default function Home() {
             </Head>
             <NavBar></NavBar>
             <main className={styles.main}>
-                <img src="cloud.svg"></img>
+                <AnimatedBackground></AnimatedBackground>
                 <div className={styles.topblock}>
                     <div className={styles.title}>Takeoff 🚀</div>
                     <div className={styles.quote}>
@@ -50,6 +51,7 @@ export default function Home() {
                         ></input>
                         <AutoComplete setCity={(city) => setCity(city)} searchValue={search}></AutoComplete>
                     </div>
+
                     {city ? <CityContent></CityContent> : <HomeContent></HomeContent>}
                     <Footer></Footer>
                 </div>
