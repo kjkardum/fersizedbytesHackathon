@@ -1,6 +1,7 @@
 import dontenv from "dotenv";
 import Amadeus from "amadeus";
 import Joi from "joi";
+import { IHotelOffers } from "./apiInterfaces";
 
 dontenv.config();
 
@@ -19,6 +20,10 @@ export class APIWrapper {
 
     public GetLocationData = async (location: string): Promise<ILocationSearchResoult> => {
         return (await this.amadeus.referenceData.location(location).get()).result.data;
+    };
+
+    public GetHotelOffers = async (cityCode: string): Promise<IHotelOffers> => {
+        return await this.amadeus.shopping.hotelOffers.get({ cityCode });
     };
 }
 

@@ -3,7 +3,7 @@ import styles from "../styles/HomeContent.module.css";
 
 import { Row, Col } from "react-bootstrap";
 import HomeFeatured from "./HomeFeatured";
-import FlightMap from "./FlightMap";
+import { FlightMap } from "./FlightMap";
 
 const HomeContent = (props) => (
     <div className={styles.homecontent}>
@@ -12,7 +12,14 @@ const HomeContent = (props) => (
         <hr className={styles.mobilehr}></hr>
         <HomeFeatured reverse={true}></HomeFeatured>
         <hr className={styles.mobilehr}></hr>
-        <FlightMap></FlightMap>
+
+        <FlightMap
+            center={{
+                lat: 0,
+                lng: 0,
+            }}
+            zoom={1}
+        />
     </div>
 );
 export default HomeContent;
