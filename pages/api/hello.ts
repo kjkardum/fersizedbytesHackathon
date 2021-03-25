@@ -9,11 +9,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let api = new APIWrapper();
 
     res.setHeader("Content-Type", "application/json");
-
-    if (req.body && req.body.length > 0) {
-        let cityCode = JSON.parse(req.body).cityCode;
-        return res.end(safeStringify((await api.GetHotelOffers(cityCode)).slice(0, 3)));
-    }
-
-    return res.end();
+    return res.end(safeStringify({}));
 };
