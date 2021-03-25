@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 
 const CityContent = (props) => (
     <div className={styles.citycontent}>
-        <Form className={styles.cityform} action="/reserve" method="POST">
+        <Form className={styles.cityform} action="/" method="GET">
             <Form.Control type="hidden" name="to" value={props.city}></Form.Control>
             <Form.Row>
                 <Col xs={6}>
