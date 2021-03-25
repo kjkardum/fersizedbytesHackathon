@@ -23,7 +23,7 @@ export class APIWrapper {
     };
 
     public GetHotelOffers = async (cityCode: string): Promise<IHotelOffers> => {
-        return await this.amadeus.shopping.hotelOffers.get({ cityCode });
+        return (await this.amadeus.shopping.hotelOffers.get({ cityCode })).data;
     };
 }
 
