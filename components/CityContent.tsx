@@ -18,8 +18,10 @@ const CityContent = (props) => {
     const [checkoutFlow, setCheckoutFlow] = useState("basicInfo");
 
     const [hotelData, setHotelData] = useState({});
+    const [lastSearch, setLastSearch] = useState("");
 
-    if (props.city) {
+    if (props.city && lastSearch != props.city) {
+        setLastSearch(props.city);
         fetch("/api/getDestinationInfo?q=" + props.city)
             .then((data) => data.json())
             .then((data) => console.log(data))

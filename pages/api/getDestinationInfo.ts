@@ -16,6 +16,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!q) return res.end({});
 
     let result = (await api.GetHotelOffers(q)).slice(0, 3);
-
     return res.end(safeStringify(result));
 };
