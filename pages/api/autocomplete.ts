@@ -21,7 +21,7 @@ export default async (req, res: NextApiResponse) => {
     });
 
     arr.sort((str1, str2) => (distance(str1.name, q) < distance(str2.name, q) ? 1 : -1));
-    arr = arr.slice(0, 10);
+    arr = arr.slice(0, 8);
     arr.sort((str1, str2) => (matchingCharsNum(str1.name, q) < matchingCharsNum(str2.name, q) ? 1 : -1));
 
     res.end(safeStringify(arr));

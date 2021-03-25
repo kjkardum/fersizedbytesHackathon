@@ -192,7 +192,7 @@
         "lng": -3.566764
     },
     {
-        "name": "Suvarnabhumi Intl",
+        "name": "Suvarnabhumi Intl Bangkok",
         "city": "Bangkok",
         "country": "Thailand",
         "iata_code": "BKK",
@@ -10510,6 +10510,14 @@
         "iata_code": "YXU",
         "lat": 43.033056,
         "lng": -81.151111
+    },
+    {
+        "name": "London",
+        "city": "London",
+        "country": "UK",
+        "iata_code": "LON",
+        "lat": 51.5074,
+        "lng": 0.1278
     },
     {
         "name": "Gibraltar",
@@ -21478,6 +21486,14 @@
         "iata_code": "MVR",
         "lat": 10.451392,
         "lng": 14.257361
+    },
+    {
+        "name": "New York",
+        "city": "New York",
+        "country": "Cameroon",
+        "iata_code": "NYC",
+        "lat": 40.7128,
+        "lng": 74.0060
     },
     {
         "name": "Dalma Airport",
