@@ -22,13 +22,17 @@ export default function Home() {
             <main className={styles.main}>
                 <div className={styles.topblock}>
                     <div className={styles.title}>Takeoff 🚀</div>
-                    <div className={styles.quote}>{quotes[Math.floor(Math.random() * quotes.length)]}</div>
+                    <div className={styles.quote}>
+                        <p>{quotes[Math.floor(Math.random() * quotes.length)]}</p>
+                    </div>
                 </div>
                 <div className={styles.contentblock}>
                     <div className={styles.searchcontainer}>
                         <input onChange={(e) => setSearch(e.target.value)} type="search" id="flightSearch" name="q" aria-label="Search flights" className={styles.searchbox} placeholder="Find a flight"></input>
                     </div>
-                    <AutoComplete searchValue={search}></AutoComplete>
+                    <div>
+                        <AutoComplete searchValue={search}></AutoComplete>
+                    </div>
                     <HomeContent></HomeContent>
                     <Footer></Footer>
                 </div>

@@ -11,7 +11,7 @@ const main = (props) => {
         <div>
             {cities.map((el) => {
                 let s = matchingChars(el, inputValue);
-                return <ul>{el}</ul>;
+                return <ul key={Math.random()}>{el.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}</ul>;
             })}
         </div>
     );
