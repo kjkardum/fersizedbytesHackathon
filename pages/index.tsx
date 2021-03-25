@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-<<<<<<< HEAD
 import NavBar from "../components/NavBar"
 import HomeContent from "../components/HomeContent"
 
@@ -36,54 +35,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-=======
-import NavBar from "../components/NavBar";
-import { quotes } from "../services/quotes";
-
-export default function Home() {
-    return (
-        <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <NavBar></NavBar>
-            <main className={styles.main}>
-                <div className={styles.topblock}>
-                    <div className={styles.title}>Takeoff 🚀</div>
-                    <div className={styles.quote}>
-                        {quotes[Math.floor(Math.random() * quotes.length)]}
-                    </div>
-                </div>
-                <div className={styles.contentblock}>
-                    <div className={styles.searchcontainer}>
-                        <input
-                            type="search"
-                            id="flightSearch"
-                            name="q"
-                            aria-label="Search flights"
-                            className={styles.searchbox}
-                            placeholder="Find a flight"
-                        ></input>
-                    </div>
-                </div>
-            </main>
-
-            <footer className={styles.footer}>
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by{" "}
-                    <img
-                        src="/vercel.svg"
-                        alt="Vercel Logo"
-                        className={styles.logo}
-                    />
-                </a>
-            </footer>
-        </div>
->>>>>>> d3f912a316e4a61d9eb518eaf017afe53dc512b0
     );
 }
