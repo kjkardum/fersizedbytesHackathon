@@ -2,6 +2,10 @@ import React from "react";
 import styles from "../styles/CityContent.module.css";
 import { Line } from "react-chartjs-2";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+import { firebaseConfig } from "../services/config";
+
 import { Row, Col, Form, Button } from "react-bootstrap";
 
 const CityContent = (props) => (
@@ -20,7 +24,10 @@ const CityContent = (props) => (
                 </Col>
             </Form.Row>
             <Button variant="primary" type="submit" className={styles.submitbutton}>
-                Submit
+                Make a reservation
+            </Button>
+            <Button variant="primary" type="submit" className={styles.submitbutton}>
+                Buy flight
             </Button>
         </Form>
         <hr />
