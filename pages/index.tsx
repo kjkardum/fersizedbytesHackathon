@@ -8,10 +8,13 @@ import AutoComplete from "../components/AutoComplete";
 import React, { useState } from "react";
 import { quotes } from "../services/quotes";
 import Footer from "../components/Footer";
+import { FormControl } from "react-bootstrap";
 
 export default function Home() {
     const [search, setSearch] = useState("");
     const [quote, setQuote] = useState(quotes[Math.floor(Math.random() * quotes.length)]);
+
+    let inputTimer;
 
     return (
         <div className={styles.container}>
@@ -29,9 +32,21 @@ export default function Home() {
                 </div>
                 <div className={styles.contentblock}>
                     <div className={styles.searchcontainer}>
-                        <input onChange={(e) => setSearch(e.target.value)} type="search" id="flightSearch" name="q" aria-label="Search flights" className={styles.searchbox} placeholder="Find a flight"></input>
-                    </div>
-                    <div>
+                        <FormControl
+                            onChange={(e) => {
+                                clearTimeout(inputTimer);
+                                inputTimer = setTimeout(function () {
+                                    setSearch(e.target.value);
+                                }, 500);
+                            }}
+                            type="search"
+                            id="flightSearch"
+                            name="q"
+                            aria-label="Search flights"
+                            className={styles.searchbox}
+                            placeholder="Find a flight"
+                        ></FormControl>
+
                         <AutoComplete searchValue={search}></AutoComplete>
                     </div>
                     <HomeContent></HomeContent>

@@ -1,36 +1,30 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { NextApiHandler, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import safeStringify from "../../util/safeStringify";
-
-import url from "url";
 
 import { airportNames } from "../../services/airports";
 
 export default async (req, res: NextApiResponse) => {
     const current_url = new URL("https://www.google.com" + req.url);
 
-    const fuzzyMatch = (s, p: string) => {
-        if (p.length == 0) return false;
-
-        p = p.split("").reduce((a, b) => a + "[^" + b + "]*" + b);
-        return RegExp(p, "i").test(s);
-    };
-
     res.setHeader("Content-Type", "application/json");
 
     let q = current_url.searchParams.get("q");
     if (!q) return res.end();
 
-    let fuzzied = airportNames.filter((s) => s.split(" ").some((w) => fuzzyMatch(q, w))).slice(0, 100);
+    let arr = airportNames.slice();
 
-    fuzzied.sort((str1, str2) => (distance(str1, q) < distance(str2, q) ? 1 : -1));
-    res.end(safeStringify(fuzzied.slice(0, 10)));
+    arr.sort((str1, str2) => (distance(str1, q) < distance(str2, q) ? 1 : -1));
+    arr = arr.slice(0, 10);
+    arr.sort((str1, str2) => (matchingCharsNum(str1, q) < matchingCharsNum(str2, q) ? 1 : -1));
+
+    res.end(safeStringify(arr));
 
     return true;
 };
 
-function distance(val1, val2) {
+function distance(val1: string, val2: string) {
     let longer, shorter, longerlth, result;
 
     if (val1.length > val2.length) {
@@ -74,4 +68,18 @@ function editDistance(val1, val2) {
     }
 
     return costs[val2.length];
+}
+
+// Should be dp, not greedy, might change
+function matchingCharsNum(hay: String, needle: String) {
+    let charIndicies = new Set();
+    let i = 0,
+        j = 0;
+    while (i < hay.length && j < needle.length) {
+        if (hay[i].toLowerCase() == needle[j].toLowerCase()) {
+            ++i;
+            ++j;
+        } else ++i;
+    }
+    return j;
 }
