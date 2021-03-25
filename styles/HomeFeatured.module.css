@@ -1,11 +1,10 @@
-
-.featured{
+.featured {
     padding-bottom: 6rem;
 }
-.featuredimage{
-    width: 100%;
-
+.featuredimage {
+    width: 80%;
+    margin: 0 10%;
 }
-.featuredtitle{
+.featuredtitle {
     font-size: 3rem;
 }
