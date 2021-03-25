@@ -15,19 +15,19 @@ const AutoComplete = (props) => {
     return (
         <ul className={`${styles.autocompletelist} bigshadow`}>
             {cities.map((el, i) => {
-                let s = matchingChars(el, inputValue);
+                let s = matchingChars(el.name, inputValue);
                 return (
                     <li
                         className={styles.autocompleteitem}
                         onClick={() => {
-                            props.setCity(el);
+                            props.setCity(el.name);
                             if (props.mobile) {
                                 props.closeMobile();
                             }
                         }}
                         key={`li_city_${i}`}
                     >
-                        {el.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}
+                        {el.name.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}
                     </li>
                 );
             })}

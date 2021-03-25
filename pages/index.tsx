@@ -53,7 +53,6 @@ export default function Home() {
                         <AutoComplete
                             setCity={(city) => {
                                 setCity(city);
-                                console.log(city);
                             }}
                             searchValue={search}
                         ></AutoComplete>

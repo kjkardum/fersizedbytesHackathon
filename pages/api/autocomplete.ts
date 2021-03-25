@@ -13,11 +13,16 @@ export default async (req, res: NextApiResponse) => {
     let q = current_url.searchParams.get("q");
     if (!q) return res.end();
 
-    let arr = airports.map((y) => y.name);
+    let arr = airports.map((y) => {
+        return {
+            name: y.name,
+            iata: y.iata_code,
+        };
+    });
 
-    arr.sort((str1, str2) => (distance(str1, q) < distance(str2, q) ? 1 : -1));
+    arr.sort((str1, str2) => (distance(str1.name, q) < distance(str2.name, q) ? 1 : -1));
     arr = arr.slice(0, 10);
-    arr.sort((str1, str2) => (matchingCharsNum(str1, q) < matchingCharsNum(str2, q) ? 1 : -1));
+    arr.sort((str1, str2) => (matchingCharsNum(str1.name, q) < matchingCharsNum(str2.name, q) ? 1 : -1));
 
     res.end(safeStringify(arr));
 
