@@ -7,6 +7,7 @@ import FlightMap from "./FlightMap";
 
 const HomeContent = (props) => (
     <div className={styles.homecontent}>
+        <div className={styles.featureddestinations}>Popular Destination</div>
         <HomeFeatured></HomeFeatured>
         <HomeFeatured reverse={true}></HomeFeatured>
         <FlightMap></FlightMap>

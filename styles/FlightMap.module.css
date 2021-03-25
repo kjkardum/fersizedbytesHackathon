@@ -9,3 +9,15 @@
     width: 80%;
     border-radius: 30px;
 }
+@media only screen and (max-width: 600px) {
+    .flighttitle {
+        font-size: 2rem;
+    }
+    .flightdescription {
+        font-size: 1rem;
+    }
+    .demomap {
+        width: 100%;
+        margin: 0;
+    }
+}

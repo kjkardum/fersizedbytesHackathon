@@ -148,3 +148,21 @@
         flex-direction: column;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .quote {
+        font-size: 1.25rem;
+        padding-left: 0;
+    }
+    .topblock {
+        min-height: 250px;
+        padding: 0 1rem;
+    }
+    .searchcontainer {
+        display: none;
+    }
+    .contentblock {
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+    }
+}

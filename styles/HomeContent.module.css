@@ -1,3 +1,20 @@
 .homecontent {
     padding: 2rem;
 }
+.featureddestinations {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .featureddestinations {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+    }
+    .homecontent {
+        padding: 1rem;
+    }
+}
