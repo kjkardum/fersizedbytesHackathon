@@ -26,6 +26,9 @@
     left: 50%;
     transform: translateX(-50%);
 }
+.usericon {
+    margin-bottom: 1rem;
+}
 @media only screen and (max-width: 600px) {
     .citycontent {
         padding: 1rem;

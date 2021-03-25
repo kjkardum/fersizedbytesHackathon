@@ -6,7 +6,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from "../services/config";
 
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, FormControl } from "react-bootstrap";
 import { array } from "joi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,7 @@ const CityContent = (props) => {
     const [lastCity, setLastCity] = useState("");
     const [loading, setLoading] = useState(true);
     const [hotelData, setHotelData] = useState([]);
-    const [reservationData, setReservationData] = useState({ list: [] });
+    const [reservationData, setReservationData] = useState([]);
 
     if (props.city && props.city != lastCity) {
         fetch("/api/getDestinationInfo?q=" + props.city)
@@ -49,10 +49,11 @@ const CityContent = (props) => {
                 className={styles.cityform}
                 onSubmit={(e) => {
                     e.preventDefault();
+                    //@ts-ignore
                     setCheckoutFlow(e.nativeEvent.submitter.name);
                     const arr = [];
                     for (let i = 0; i < flightQuantity; i++) arr.push({});
-                    setReservationData({ list: [...arr] });
+                    setReservationData([...arr]);
                 }}
                 action="/"
                 method="GET"
@@ -117,20 +118,99 @@ const CityContent = (props) => {
                                         },
                                     ],
                                 }}
+                                width={80}
+                                height={20}
                             ></Line>
-                            ;
                         </>
                     )}
                 </>
             )}
-            {checkoutFlow == "reservation" && (
-                <Row>
-                    {reservationData.list.map((i, item) => {
-                        <Col>
-                            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                        </Col>;
-                    })}
-                </Row>
+            {checkoutFlow == "checkout" && (
+                <>
+                    <Row>
+                        {reservationData.map((i, item) => (
+                            <Col md={2} key={item}>
+                                <FontAwesomeIcon className={styles.usericon} icon={faUser}></FontAwesomeIcon>
+                                <FormControl
+                                    onChange={(e) => {
+                                        let o = [...reservationData];
+                                        o[item].firstname = e.target.value;
+                                        setReservationData([...o]);
+                                    }}
+                                    size="lg"
+                                    placeholder="First Name"
+                                ></FormControl>
+                                <br />
+                                <FormControl
+                                    onChange={(e) => {
+                                        let o = [...reservationData];
+                                        o[item].lastname = e.target.value;
+                                        setReservationData([...o]);
+                                    }}
+                                    size="lg"
+                                    placeholder="Last Name"
+                                ></FormControl>
+                                <br />
+                                <FormControl
+                                    onChange={(e) => {
+                                        let o = [...reservationData];
+                                        o[item].dateofbirth = e.target.value;
+                                        setReservationData([...o]);
+                                    }}
+                                    size="lg"
+                                    type="date"
+                                    placeholder="Date of Birth"
+                                ></FormControl>
+                                <br />
+                            </Col>
+                        ))}
+                    </Row>
+                    <Button>Make a reservation</Button>
+                    <Form>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="formGridName">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter your first and last name" />
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" />
+                            </Form.Group>
+                        </Form.Row>
+
+                        <Form.Group controlId="formGridAddress1">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control placeholder="1234 Main St" />
+                        </Form.Group>
+
+                        <Form.Group controlId="formGridAddress2">
+                            <Form.Label>Address 2</Form.Label>
+                            <Form.Control placeholder="Apartment, studio, or floor" />
+                        </Form.Group>
+
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="formGridCity">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridState">
+                                <Form.Label>State</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridZip">
+                                <Form.Label>Zip</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+                        </Form.Row>
+
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </>
             )}
         </div>
     );
