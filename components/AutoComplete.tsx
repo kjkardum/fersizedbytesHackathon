@@ -20,14 +20,14 @@ const AutoComplete = (props) => {
                     <li
                         className={styles.autocompleteitem}
                         onClick={() => {
-                            props.setCity(el.name);
+                            props.setCity(el.iata);
                             if (props.mobile) {
                                 props.closeMobile();
                             }
                         }}
                         key={`li_city_${i}`}
                     >
-                        {el.name.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}
+                        {el.iata} - {el.name.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}
                     </li>
                 );
             })}
