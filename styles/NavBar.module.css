@@ -2,6 +2,7 @@
     position: absolute;
     top: 1rem;
     right: 2rem;
+    z-index: 2;
 }
 .navbar-nav {
     padding-top: 0.25rem;
@@ -40,7 +41,6 @@
     }
 }
 .navbox {
-    z-index: 1;
     position: absolute;
     top: 1rem;
     right: 1rem;
