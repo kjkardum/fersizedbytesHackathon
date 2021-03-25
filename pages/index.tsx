@@ -37,7 +37,7 @@ export default function Home() {
                                 clearTimeout(inputTimer);
                                 inputTimer = setTimeout(function () {
                                     setSearch(e.target.value);
-                                }, 500);
+                                }, 200);
                             }}
                             type="search"
                             id="flightSearch"
@@ -46,7 +46,6 @@ export default function Home() {
                             className={styles.searchbox}
                             placeholder="Find a flight"
                         ></FormControl>
-                        <input></input>
                         <AutoComplete searchValue={search}></AutoComplete>
                     </div>
                     <HomeContent></HomeContent>
