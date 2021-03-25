@@ -1,0 +1,25 @@
+steps:
+- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  entrypoint: "bash"
+  args: ["-c", "gcloud config set app/cloud_build_timeout 1600 && yarn app deploy"]
+timeout: "1600s"
+
+steps:
+- name: node
+  entrypoint: yarn
+  args: ["install"]
+- name: node
+  entrypoint: yarn
+  args: ["buildEnv"]
+  env:
+    - "PROJECT_ID=${_PROJECT_ID}"
+    - "PRIVATE_KEY=${_PRIVATE_KEY}"
+    - "CLIENT_EMAIL=${_CLIENT_EMAIL}"
+    - "AMADEUS_CLIENT_ID=${_AMADEUS_API_KEY}"
+    - "AMADEUS_CLIENT_SECRET=${_AMADEUS_API_KEY}"
+- name: node
+  entrypoint: yarn
+  args: ["build"]
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy"]
+timeout: "1600s"

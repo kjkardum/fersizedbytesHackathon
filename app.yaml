@@ -1,0 +1,14 @@
+env: standard
+runtime: nodejs12
+service: takeoff
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
+
+instance_class: F4
+automatic_scaling:
+  max_idle_instances: 1
+  min_pending_latency: automatic
+  max_pending_latency: 30ms

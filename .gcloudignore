@@ -1,0 +1,11 @@
+#!include:.gitignore
+.git
+.gitignore
+
+/pages/
+/components/
+/Services/
+/styles/
+
+!build
+!.env
