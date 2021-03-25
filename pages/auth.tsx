@@ -12,6 +12,8 @@ function main({ Component, pageProps }) {
         firebase.app();
     }
 
+    const googleLoginProvider = new firebase.auth.GoogleAuthProvider();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -30,6 +32,24 @@ function main({ Component, pageProps }) {
             });
     };
 
+    const googleLoginHandler = () => {
+        firebase
+            .auth()
+            .signInWithPopup(googleLoginProvider)
+            .then((result) => {
+                var credential = result.credential;
+                var user = result.user;
+
+                console.log(user);
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                alert(errorMessage);
+            });
+    };
+
     return (
         <div>
             <p>Enter your credentials</p>
@@ -45,6 +65,9 @@ function main({ Component, pageProps }) {
             ></input>
             <br />
             <button onClick={() => loginHandler()}>Login</button>
+            <button onClick={() => googleLoginHandler()}>
+                Login with Google
+            </button>
         </div>
     );
 }
