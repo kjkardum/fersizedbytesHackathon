@@ -1,0 +1,56 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    padding: 1rem 0 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.topblock {
+    padding: 0 2rem;
+    height: 100px;
+    z-index: 1;
+}
+
+.title a {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus,
+.title a:active {
+    text-decoration: underline;
+}
+
+.title {
+    z-index: 1;
+    margin: 0;
+    line-height: 1.15;
+    font-size: 2rem;
+}
+.logindiv {
+    width: 300px;
+    min-height: 300px;
+    padding-top: 200px;
+    place-self: center;
+    text-align: center;
+}
+.logininput {
+    outline: none !important;
+    border: none;
+    font-size: 1.5rem;
+    border-bottom: 1px solid gray;
+    padding: 1rem;
+}
+.loginbutton {
+    margin: 1rem;
+}

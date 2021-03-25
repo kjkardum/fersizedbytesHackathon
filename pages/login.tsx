@@ -1,5 +1,9 @@
+import Head from "next/head";
 import React, { useState } from "react";
 import firebase from "firebase/app";
+import AnimatedBackground from "../components/AnimatedBackground";
+import styles from "../styles/Login.module.css";
+import { Button } from "react-bootstrap";
 
 import "firebase/auth";
 
@@ -51,23 +55,29 @@ function main({ Component, pageProps }) {
     };
 
     return (
-        <div>
-            <p>Enter your credentials</p>
-            <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            ></input>
-            <br />
-            <input
-                value={password}
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-            ></input>
-            <br />
-            <button onClick={() => loginHandler()}>Login</button>
-            <button onClick={() => googleLoginHandler()}>
-                Login with Google
-            </button>
+        <div className={styles.container}>
+            <Head>
+                <title>Takeoff</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className={styles.main}>
+                <div className={styles.topblock}>
+                    <div className={styles.title}>Takeoff 🚀</div>
+                </div>
+                <div className={styles.logindiv}>
+                    <p className={styles.title}>Enter your credentials</p>
+                    <input placeholder="Email" value={email} className={styles.logininput} onChange={(e) => setEmail(e.target.value)}></input>
+                    <br />
+                    <input placeholder="Password" value={password} type="password" className={styles.logininput} onChange={(e) => setPassword(e.target.value)}></input>
+                    <br />
+                    <Button className={styles.loginbutton} onClick={() => loginHandler()}>
+                        Login
+                    </Button>
+                    <Button className={styles.loginbutton} onClick={() => googleLoginHandler()}>
+                        Login with Google
+                    </Button>
+                </div>
+            </main>
         </div>
     );
 }
