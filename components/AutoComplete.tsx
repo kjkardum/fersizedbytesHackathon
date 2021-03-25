@@ -5,12 +5,15 @@ import { useState } from "react";
 
 const AutoComplete = (props) => {
     const [cities, setCities] = useState([]);
+    const [lastSearch, setLastSearch] = useState("");
 
     let inputValue = props.searchValue as string;
-    if (inputValue.length > 2)
+    if (inputValue.length > 2 && inputValue != lastSearch) {
         fetch("/api/autocomplete?q=" + inputValue)
             .then((response) => response.json())
             .then((data) => setCities(data));
+        setLastSearch(inputValue);
+    }
 
     return (
         <ul className={`${styles.autocompletelist} bigshadow`}>
