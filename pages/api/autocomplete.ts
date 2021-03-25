@@ -3,7 +3,7 @@
 import { NextApiResponse } from "next";
 import safeStringify from "../../util/safeStringify";
 
-import { airportNames } from "../../services/airports";
+import airports from "../../services/airports.json";
 
 export default async (req, res: NextApiResponse) => {
     const current_url = new URL("https://www.google.com" + req.url);
@@ -13,7 +13,7 @@ export default async (req, res: NextApiResponse) => {
     let q = current_url.searchParams.get("q");
     if (!q) return res.end();
 
-    let arr = airportNames.slice();
+    let arr = airports.map((y) => y.name);
 
     arr.sort((str1, str2) => (distance(str1, q) < distance(str2, q) ? 1 : -1));
     arr = arr.slice(0, 10);
