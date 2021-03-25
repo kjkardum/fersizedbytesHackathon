@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: lightskyblue;
+    background: linear-gradient(to left, #57c1eb 0%, #246fa8 100%);
 }
 
 .main {

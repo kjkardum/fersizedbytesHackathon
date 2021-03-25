@@ -8,7 +8,6 @@ import AutoComplete from "../components/AutoComplete";
 import React, { useState } from "react";
 import { quotes } from "../services/quotes";
 import Footer from "../components/Footer";
-import { FormControl } from "react-bootstrap";
 import CityContent from "../components/CityContent";
 
 export default function Home() {
@@ -26,6 +25,7 @@ export default function Home() {
             </Head>
             <NavBar></NavBar>
             <main className={styles.main}>
+                <img src="cloud.svg"></img>
                 <div className={styles.topblock}>
                     <div className={styles.title}>Takeoff 🚀</div>
                     <div className={styles.quote}>
@@ -39,7 +39,7 @@ export default function Home() {
                                 clearTimeout(inputTimer);
                                 inputTimer = setTimeout(function () {
                                     setSearch(e.target.value);
-                                }, 200);
+                                }, 50);
                             }}
                             type="search"
                             id="flightSearch"
