@@ -14,5 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader("Content-Type", "application/json");
 
     if (!q) return res.end({});
-    return res.end(safeStringify((await api.GetHotelOffers(q)).slice(0, 3)));
+
+    let result = (await api.GetHotelOffers(q)).slice(0, 3);
+
+    return res.end(safeStringify(result));
 };
