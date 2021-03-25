@@ -6,8 +6,8 @@ import { useState } from "react";
 const AutoComplete = (props) => {
     const [cities, setCities] = useState([]);
 
-    let inputValue = props.searchValue;
-    if (inputValue)
+    let inputValue = props.searchValue as string;
+    if (inputValue.length > 2)
         fetch("/api/autocomplete?q=" + inputValue)
             .then((response) => response.json())
             .then((data) => setCities(data));

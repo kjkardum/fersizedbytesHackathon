@@ -18,6 +18,7 @@ steps:
     - "AMADEUS_CLIENT_ID=${_AMADEUS_API_KEY}"
     - "AMADEUS_CLIENT_SECRET=${_AMADEUS_API_KEY}"
     - "MONGODB_DB_CONNECTION_STRING=${_MONGODB_DB_CONNECTION_STRING}"
+    - "MAPS_API_KEY=${_MAPS_API_KEY}"
 - name: node
   entrypoint: yarn
   args: ["build"]

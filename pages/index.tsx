@@ -39,7 +39,7 @@ export default function Home() {
                                 clearTimeout(inputTimer);
                                 inputTimer = setTimeout(function () {
                                     setSearch(e.target.value);
-                                }, 500);
+                                }, 200);
                             }}
                             type="search"
                             id="flightSearch"
