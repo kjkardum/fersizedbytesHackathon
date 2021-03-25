@@ -9,6 +9,7 @@ import { firebaseConfig } from "../services/config";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
 const CityContent = (props) => {
+    const [temps, setTemps] = useState(new Array(24));
     const [flightTo, setFlightTo] = useState(props.city);
     const [flightFrom, setFlightFrom] = useState("");
     const [flightDeparture, setFlightDeparture] = useState("");
@@ -18,10 +19,18 @@ const CityContent = (props) => {
 
     const [hotelData, setHotelData] = useState({});
 
-    if (props.city)
+    if (props.city) {
         fetch("/api/getDestinationInfo?q=" + props.city)
             .then((data) => data.json())
-            .then((data) => console.log(data));
+            .then((data) => console.log(data))
+            .catch((err) => console.log(err));
+        fetch(`/api/weather/?q=` + props.city)
+            .then((data) => data.json())
+            .then((data) => {
+                setTemps(data);
+            })
+            .catch((err) => console.log(err));
+    }
 
     return (
         <div className={styles.citycontent}>
@@ -81,7 +90,20 @@ const CityContent = (props) => {
                             <div className={styles.hoteldescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas posuere tristique. In tellus massa, tempor eu tincidunt ac, ornare nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum suscipit luctus est, eu dignissim arcu efficitur non. Cras pulvinar est risus, vitae ultricies ligula fringilla vitae. Duis vitae finibus odio. Aenean vulputate dapibus eros et laoreet. Suspendisse potenti. Morbi eros nunc, rutrum fermentum gravida a, mollis auctor nisi. Ut finibus, nisl sit amet viverra faucibus, turpis leo pulvinar quam, at tempor metus erat malesuada magna. Nulla convallis, lectus et semper porttitor, enim ipsum cursus diam, eget eleifend urna tellus eu sapien. Sed sit amet mauris ac sem aliquet tincidunt. Donec in ipsum vitae quam tempor maximus sed in eros. Praesent convallis, dolor ac gravida fermentum, ante justo sollicitudin turpis, sed congue nisl sapien ac dui. Quisque dictum, augue et ornare hendrerit, eros orci tempor elit, vel fermentum ligula leo ut magna. Cras sollicitudin tellus quis ultricies rhoncus.</div>
                         </Col>
                     </Row>
-                    <Line data={{ labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050] }}></Line>;
+                    <Line
+                        data={{
+                            labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
+                            datasets: [
+                                {
+                                    data: temps,
+                                    label: "Temperature",
+                                    borderColor: "#3e95cd",
+                                    fill: false,
+                                },
+                            ],
+                        }}
+                    ></Line>
+                    ;
                 </>
             )}
         </div>
