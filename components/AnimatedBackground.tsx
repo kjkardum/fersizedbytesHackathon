@@ -5,6 +5,7 @@ function main(props) {
     return (
         <div className={styles.main}>
             <img className={styles.svg} src="/cloud.svg"></img>
+            <img className={styles.svg2} src="/cloud.svg"></img>
         </div>
     );
 }

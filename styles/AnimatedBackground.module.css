@@ -1,14 +1,11 @@
 @keyframes move {
-    0% {
-        transform: translate(150px, 150px);
+    from {
+        -webkit-transform: rotate(-20deg);
+        transform: rotate(-20deg);
     }
-
-    50% {
-        transform: translate(200px, 200px);
-    }
-
-    100% {
-        transform: translate(150px, 150px);
+    to {
+        -webkit-transform: rotate(20deg);
+        transform: rotate(20deg);
     }
 }
 
@@ -17,6 +14,16 @@
 }
 
 .svg {
-    animation: move 30s infinite;
-    animation-iteration-count: infinite;
+    left: 50%;
+    position: absolute;
+    transform-origin: 0 300vh;
+    will-change: transform;
+    animation: move 48s linear infinite;
+}
+.svg2 {
+    left: 90%;
+    position: absolute;
+    transform-origin: 0 260vh;
+    will-change: transform;
+    animation: move 52s linear infinite;
 }
