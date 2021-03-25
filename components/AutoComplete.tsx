@@ -15,7 +15,17 @@ const main = (props) => {
         <ul>
             {cities.map((el, i) => {
                 let s = matchingChars(el, inputValue);
-                return <li key={`li_city_${i}`}>{el.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}</li>;
+                return (
+                    <li
+                        onClick={() => {
+                            props.setCity(el);
+                            console.log(el);
+                        }}
+                        key={`li_city_${i}`}
+                    >
+                        {el.split("").map((c, i) => (s.has(i) ? <b>{c}</b> : c))}
+                    </li>
+                );
             })}
         </ul>
     );

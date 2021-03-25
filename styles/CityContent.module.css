@@ -1,0 +1,14 @@
+.citycontent {
+    padding: 2rem;
+}
+.mobilehr {
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    .citycontent {
+        padding: 1rem;
+    }
+    .mobilehr {
+        display: block;
+    }
+}

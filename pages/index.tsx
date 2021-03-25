@@ -9,12 +9,14 @@ import React, { useState } from "react";
 import { quotes } from "../services/quotes";
 import Footer from "../components/Footer";
 import { FormControl } from "react-bootstrap";
+import CityContent from "../components/CityContent";
 
 export default function Home() {
     const [search, setSearch] = useState("");
     const [quote, setQuote] = useState(quotes[Math.floor(Math.random() * quotes.length)]);
 
     let inputTimer;
+    const [city, setCity] = useState("");
 
     return (
         <div className={styles.container}>
@@ -32,7 +34,7 @@ export default function Home() {
                 </div>
                 <div className={styles.contentblock}>
                     <div className={styles.searchcontainer}>
-                        <FormControl
+                        <input
                             onChange={(e) => {
                                 clearTimeout(inputTimer);
                                 inputTimer = setTimeout(function () {
@@ -45,11 +47,10 @@ export default function Home() {
                             aria-label="Search flights"
                             className={styles.searchbox}
                             placeholder="Find a flight"
-                        ></FormControl>
-                        <input></input>
-                        <AutoComplete searchValue={search}></AutoComplete>
+                        ></input>
+                        <AutoComplete setCity={(city) => setCity(city)} searchValue={search}></AutoComplete>
                     </div>
-                    <HomeContent></HomeContent>
+                    {city ? <CityContent></CityContent> : <HomeContent></HomeContent>}
                     <Footer></Footer>
                 </div>
             </main>
