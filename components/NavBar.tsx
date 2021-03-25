@@ -3,6 +3,7 @@ import styles from "../styles/NavBar.module.css";
 import { faEllipsisV, fas, faSearch, faHome, faPlane, faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+<<<<<<< HEAD
 const NavBar = (props) => {
     let [navbox, toggleNavbox] = useState(false);
     return (
@@ -43,6 +44,23 @@ const NavBar = (props) => {
                     <FontAwesomeIcon icon={faEllipsisV} className={styles.navicon} onClick={() => toggleNavbox(!navbox)} />
                 </div>
             </div>
+=======
+const NavBar = (props) => (
+    <div className={styles.navbar}>
+        <div className={styles["navbar-nav"]}>
+            <a className={styles["navbar-item"]} href="/home">
+                Home
+            </a>
+            <a className={styles["navbar-item"]} href="/buy">
+                Buy Flight
+            </a>
+            <a className={styles["navbar-item"]} href="/reserve">
+                Make a reservation
+            </a>
+            <a className={styles["navbar-item"]} href="/login">
+                Login
+            </a>
+>>>>>>> b1d4dbd695ea3452c33648b5696cb22248203a85
         </div>
     );
 };
