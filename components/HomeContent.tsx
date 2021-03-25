@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/HomeContent.module.css";
 
-import {Row, Col} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import HomeFeatured from "./HomeFeatured";
 
 const HomeContent = (props) => (
@@ -9,5 +9,5 @@ const HomeContent = (props) => (
         <HomeFeatured></HomeFeatured>
         <HomeFeatured reverse={true}></HomeFeatured>
     </div>
-)
+);
 export default HomeContent;
