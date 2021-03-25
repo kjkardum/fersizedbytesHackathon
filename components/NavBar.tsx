@@ -47,7 +47,7 @@ const NavBar = (props) => {
                     </div>
                 </div>
             </div>
-            <MobileSearch open={searchview} close={() => toggleSearchview(false)}></MobileSearch>
+            <MobileSearch setCity={(city) => props.setCity(city)} open={searchview} close={() => toggleSearchview(false)}></MobileSearch>
         </>
     );
 };

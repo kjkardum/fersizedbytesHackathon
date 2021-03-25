@@ -24,7 +24,7 @@ export default function Home() {
                 <title>Takeoff</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar></NavBar>
+            <NavBar setCity={(city) => setCity(city)}></NavBar>
             <main className={styles.main}>
                 <div className={styles.topblock}>
                     <div className={styles.title}>Takeoff 🚀</div>
@@ -47,10 +47,17 @@ export default function Home() {
                             aria-label="Search flights"
                             className={styles.searchbox}
                             placeholder="Find a flight"
+                            autoComplete="off"
                         ></input>
-                        <AutoComplete setCity={(city) => setCity(city)} searchValue={search}></AutoComplete>
+                        <AutoComplete
+                            setCity={(city) => {
+                                setCity(city);
+                                console.log(city);
+                            }}
+                            searchValue={search}
+                        ></AutoComplete>
                     </div>
-                    {city ? <CityContent></CityContent> : <HomeContent></HomeContent>}
+                    {city ? <CityContent city={city}></CityContent> : <HomeContent></HomeContent>}
                     <Footer></Footer>
                 </div>
             </main>

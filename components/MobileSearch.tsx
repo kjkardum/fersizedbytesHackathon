@@ -11,8 +11,10 @@ const MobileSearch = (props) => {
             <FontAwesomeIcon className={styles.searchreturn} icon={faCaretLeft} onClick={() => props.close()}></FontAwesomeIcon>
             <span className={styles.placestext}>Places</span>
             <hr />
-            <input onChange={(e) => setSearch(e.target.value)} className={styles.mobilesearchbox} type="search" id="flightSearch" name="q" aria-label="Search flights" placeholder="Find a flight"></input>
-            <AutoComplete searchValue={search}></AutoComplete>
+            <div class={styles.reldiv}>
+                <input onChange={(e) => setSearch(e.target.value)} className={styles.mobilesearchbox} autoComplete="off" type="search" id="flightSearch" name="q" aria-label="Search flights" placeholder="Find a flight"></input>
+                <AutoComplete setCity={(city) => props.setCity(city)} closeMobile={() => props.close()} autoComplete="off" mobile={true} searchValue={search}></AutoComplete>
+            </div>
         </div>
     );
 };

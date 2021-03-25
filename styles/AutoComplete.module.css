@@ -1,0 +1,21 @@
+.autocompletelist {
+    background-color: white;
+    padding-left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top: 4rem;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.autocompleteitem::marker {
+    content: "";
+}
+.autocompleteitem {
+    padding: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+.autocompleteitem:hover {
+    background-color: lightgray;
+}
