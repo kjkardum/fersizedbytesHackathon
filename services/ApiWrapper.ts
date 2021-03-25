@@ -1,5 +1,6 @@
 import dontenv from "dotenv";
 import Amadeus from "amadeus";
+import Joi from "joi";
 
 dontenv.config();
 
@@ -15,14 +16,55 @@ export class APIWrapper {
     public SearchFlights = async (search: IFlightSearchSearch): Promise<IFlightSearchResoult> => {
         return (await this.amadeus.shopping.flightOffersSearch.get(search)).data;
     };
+
+    public GetLocationData = async (location: string): Promise<ILocationSearchResoult> => {
+        return (await this.amadeus.referenceData.location(location).get()).result.data;
+    };
 }
 
-export interface IFlightSearchSearch {
-    originLocationCode?: string;
-    destinationLocationCode?: string;
-    departureDate?: string;
-    adults?: string;
+export interface ILocationSearchResoult {
+    type: string;
+    subType: string;
+    name: string;
+    detailedName: string;
+    id: string;
+    self: {
+        href: string;
+        methods: Array<string>;
+    };
+    timeZoneOffset: string;
+    iataCode: string;
+    geoCode: {
+        latitude: number;
+        longitude: number;
+    };
+    address: {
+        cityName: string;
+        cityCode: string;
+        countryName: string;
+        countryCode: string;
+        regionCode: string;
+    };
+    analytics: {
+        travelers: {
+            score: number;
+        };
+    };
 }
+
+export const VFlightSearch = Joi.object<IFlightSearchResoult>({
+    originLocationCode: Joi.string().uppercase().length(3),
+    destinationLocationCode: Joi.string().uppercase().length(3),
+    departureDate: Joi.string(),
+    adults: Joi.number(),
+});
+export interface IFlightSearchSearch {
+    originLocationCode: string;
+    destinationLocationCode: string;
+    departureDate: string;
+    adults: string;
+}
+
 export interface IFlightSearchResoult {
     [key: string]: {
         type: "flight-offer";
