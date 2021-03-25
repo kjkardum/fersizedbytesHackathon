@@ -11,6 +11,7 @@ import Footer from "../components/Footer";
 
 export default function Home() {
     const [search, setSearch] = useState("");
+    const [quote, setQuote] = useState(quotes[Math.floor(Math.random() * quotes.length)]);
 
     return (
         <div className={styles.container}>
@@ -23,7 +24,7 @@ export default function Home() {
                 <div className={styles.topblock}>
                     <div className={styles.title}>Takeoff 🚀</div>
                     <div className={styles.quote}>
-                        <p>{quotes[Math.floor(Math.random() * quotes.length)]}</p>
+                        <p>{quote}</p>
                     </div>
                 </div>
                 <div className={styles.contentblock}>
