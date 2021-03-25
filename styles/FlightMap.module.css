@@ -1,0 +1,11 @@
+.flighttitle {
+    font-size: 3rem;
+}
+.flightdescription {
+    font-size: 1.25rem;
+}
+.demomap {
+    margin: 0 10%;
+    width: 80%;
+    border-radius: 30px;
+}

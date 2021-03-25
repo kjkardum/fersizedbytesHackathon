@@ -7,6 +7,7 @@ import AutoComplete from "../components/AutoComplete";
 
 import React, { useState } from "react";
 import { quotes } from "../services/quotes";
+import Footer from "../components/Footer";
 
 export default function Home() {
     const [search, setSearch] = useState("");
@@ -29,6 +30,7 @@ export default function Home() {
                     </div>
                     <AutoComplete searchValue={search}></AutoComplete>
                     <HomeContent></HomeContent>
+                    <Footer></Footer>
                 </div>
             </main>
         </div>
