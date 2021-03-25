@@ -22,7 +22,7 @@ const CityContent = (props) => {
     const [lastCity, setLastCity] = useState("");
     const [loading, setLoading] = useState(true);
     const [hotelData, setHotelData] = useState([]);
-    const [reservationData, setReservationData] = useState({ list: [] });
+    const [reservationData, setReservationData] = useState([]);
 
     if (props.city && props.city != lastCity) {
         fetch("/api/getDestinationInfo?q=" + props.city)
@@ -52,7 +52,7 @@ const CityContent = (props) => {
                     setCheckoutFlow(e.nativeEvent.submitter.name);
                     const arr = [];
                     for (let i = 0; i < flightQuantity; i++) arr.push({});
-                    setReservationData({ list: [...arr] });
+                    setReservationData([...arr]);
                 }}
                 action="/"
                 method="GET"
@@ -118,17 +118,18 @@ const CityContent = (props) => {
                                     ],
                                 }}
                             ></Line>
-                            ;
                         </>
                     )}
                 </>
             )}
             {checkoutFlow == "reservation" && (
                 <Row>
-                    {reservationData.list.map((i, item) => {
-                        <Col>
-                            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                        </Col>;
+                    {reservationData.map((i, item) => {
+                        return (
+                            <Col>
+                                <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                            </Col>
+                        );
                     })}
                 </Row>
             )}
