@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import HomeContent from "../components/HomeContent";
 import AutoComplete from "../components/AutoComplete";
 import AnimatedBackground from "../components/AnimatedBackground";
+import SEO from "../components/SEO";
 
 import React, { useState } from "react";
 import { quotes } from "../services/quotes";
@@ -21,10 +22,7 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="Homepage"></SEO>
             <NavBar setCity={(city) => setCity(city)}></NavBar>
             <main className={styles.main}>
                 <AnimatedBackground></AnimatedBackground>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
+import SEO from "../components/SEO";
 import styles from "../styles/Admin.module.css";
 
 function main({ Component, pageProps }) {
@@ -23,10 +24,7 @@ function main({ Component, pageProps }) {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="Admin"></SEO>
             <NavBar setCity={(city) => {}}></NavBar>
             <main className={styles.main}>
                 <div className={styles.topblock}>

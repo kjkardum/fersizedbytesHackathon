@@ -9,16 +9,14 @@ import { Database } from "../services/Database";
 import NavBar from "../components/NavBar";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { FlightMap } from "../components/FlightMap";
+import SEO from "../components/SEO";
 
 function main({ Component, pageProps }) {
     const [flightResoults, setFlightResoults] = useState([]);
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="My Reservations"></SEO>
             <NavBar hideMobileSearch={true}></NavBar>
             <main className={styles.main}>
                 <AnimatedBackground></AnimatedBackground>
