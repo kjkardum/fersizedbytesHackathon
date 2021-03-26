@@ -70,6 +70,13 @@ export interface IFlightSearchSearch {
     adults: string;
 }
 
+export interface IPopularPlace {
+    index: number;
+    name: string;
+    description: string;
+    image: string;
+}
+
 export interface IFlightSearchResoult extends Array<any> {
     [key: number]: {
         type: "flight-offer";

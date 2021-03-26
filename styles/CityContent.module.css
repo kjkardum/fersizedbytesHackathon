@@ -81,6 +81,9 @@
     .mobilehr {
         display: block;
     }
+    .ticket {
+        min-height: 200px;
+    }
 }
 
 .hotelwrapper {

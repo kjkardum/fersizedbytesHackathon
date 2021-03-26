@@ -149,6 +149,12 @@ class DB {
         else return null;
     };
 
+    public UpdatePopularPlace = async (popularPlace: IPopularPlace): Promise<boolean> => {
+        let res = await this.popularPlaces.updateOne({ index: popularPlace.index }, { ...popularPlace });
+        if (res.result.ok && res.modifiedCount == 1) return true;
+        else return false;
+    };
+
     public RemovePopularPlace = async (placeId: string): Promise<boolean> => {
         let res = await this.popularPlaces.deleteOne({ _id: new ObjectId(placeId) });
         if (res.result.ok && res.deletedCount == 1) return true;
@@ -163,6 +169,7 @@ class DB {
 export const Database = new DB();
 
 interface IPopularPlace {
+    index: number;
     name: string;
     description: string;
     image: string;
