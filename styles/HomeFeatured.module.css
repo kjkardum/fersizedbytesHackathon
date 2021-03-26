@@ -28,6 +28,9 @@
 .featuredexpand {
     display: none;
 }
+.mobiledescription {
+    display: none;
+}
 
 @media only screen and (max-width: 600px) {
     .featuredimage {
@@ -66,5 +69,15 @@
         position: absolute;
         top: 1rem;
         right: 20px;
+    }
+    .mobiledescription {
+        display: block;
+        height: 0;
+        width: 100%;
+        transition: 0.3s all;
+        overflow: hidden;
+    }
+    .mobiledescriptionactive {
+        height: 192px;
     }
 }
