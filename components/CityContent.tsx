@@ -88,11 +88,11 @@ const CityContent = (props) => {
                     </Col>
                     <Col sm={2}>
                         Departure
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightDeparture(e.target.value)} id="departure" size="lg" name="departure" type="datetime-local" placeholder="Departure" />
+                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightDeparture(e.target.value)} id="departure" size="lg" name="departure" type="date" placeholder="Departure" />
                     </Col>
                     <Col sm={2}>
                         Arrival
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightArrival(e.target.value)} id="arrival" size="lg" name="arrival" type="datetime-local" placeholder="Arrival" />
+                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightArrival(e.target.value)} id="arrival" size="lg" name="arrival" type="date" placeholder="Arrival" />
                     </Col>
                     <Col sm={2}>
                         Number of Tickets
