@@ -38,13 +38,13 @@ function main({ Component, pageProps }) {
                             <Card style={{ width: "90%", height: "100%", margin: "auto" }}>
                                 <h4>Set Featured post 1 on homepage</h4>
                                 <p>Name:</p>
-                                <input className={styles.basicinput} defaultValue={pp1Name}></input>
+                                <input className={styles.basicinput} defaultValue={pp1Name} onKeyPress={(e) => setPp1Name(e.target.value)}></input>
                                 <br />
                                 <p>Url:</p>
-                                <input className={styles.basicinput} defaultValue={pp1Url}></input>
+                                <input className={styles.basicinput} defaultValue={pp1Url} onKeyPress={(e) => setPp1Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp1Description}></textarea>
+                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp1Description} onKeyPress={(e) => setPp1Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
@@ -66,13 +66,13 @@ function main({ Component, pageProps }) {
                             <Card style={{ width: "90%", height: "100%", margin: "auto" }}>
                                 <h4>Set Featured post 2 on homepage</h4>
                                 <p>Name:</p>
-                                <input className={styles.basicinput} defaultValue={pp2Name}></input>
+                                <input className={styles.basicinput} defaultValue={pp2Name} onKeyPress={(e) => setPp2Name(e.target.value)}></input>
                                 <br />
                                 <p>Url:</p>
-                                <input className={styles.basicinput} defaultValue={pp2Url}></input>
+                                <input className={styles.basicinput} defaultValue={pp2Url} onKeyPress={(e) => setPp2Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp2Description}></textarea>
+                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp2Description} onKeyPress={(e) => setPp2Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
