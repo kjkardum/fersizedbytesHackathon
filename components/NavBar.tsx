@@ -17,11 +17,14 @@ const NavBar = (props: { user: boolean; hideMobileSearch?: boolean; setCity: (ci
                             Home
                         </a>
                     </Link>
-                    <Link href="/myReservations">
-                        <a className={styles["navbar-item"]} href="#">
-                            My Reservations
-                        </a>
-                    </Link>
+                    {props.user && (
+                        <Link href="/myReservations">
+                            <a className={styles["navbar-item"]} href="#">
+                                My reservations
+                            </a>
+                        </Link>
+                    )}
+
                     {/* <a className={styles["navbar-item"]} href="/buy">
                         Buy Flight
                     </a>

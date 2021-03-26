@@ -60,13 +60,13 @@ export class Database {
     };
 
     public CancelReservation = async (reservation: string, user: string): Promise<boolean> => {
-        let res = await this.reservations.updateOne({ user: user, _id: new ObjectId(reservation) }, { status: "canceled" });
-        if (res.result.ok && res.modifiedCount == 1) return true;
+        let res = await this.reservations.deleteOne({ user: user, _id: new ObjectId(reservation) });
+        if (res.result.ok && res.deletedCount == 1) return true;
         return false;
     };
 
     public GetUserReservations = async (user: string): Promise<Array<IReservation>> => {
-        return await this.reservations.find({}).toArray(); // todo user: new ObjectId(user)
+        return await this.reservations.find({ user, status: "valid" }).toArray(); // todo user: new ObjectId(user)
     };
 
     public BuyTicket = async (ticket: ITicketOrder): Promise<string> => {

@@ -15,11 +15,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     reservation.user = user.uid;
 
     console.table(reservation);
-    
-    if (req.method == "POST") {
+
+    if (req.method == "GET") {
+        return res.end(JSON.stringify(await db.GetUserReservations(reservation.user)));
+    } else if (req.method == "POST") {
         return res.end(await db.Reserve(reservation));
     } else if (req.method == "DELETE") {
-        return res.end(await db.CancelReservation(reservation.id, user.uid));
+        //@ts-ignore
+        await db.CancelReservation(reservation._id, user.uid);
+        return res.end();
     }
 
     return res.end("Invalid Request");

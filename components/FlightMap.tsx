@@ -29,8 +29,8 @@ export class FlightMap extends React.Component<IMapProps, IMapState> {
                 <GoogleMapReact options={{ styles: mapStyle }} bootstrapURLKeys={{ key: "AIzaSyBMfeS0ukQm-XQWx12jpFY-pqQ0CxUYDI8" }} defaultCenter={this.props.center} defaultZoom={this.props.zoom}>
                     {airports
                         .filter((_) => Math.random() > 0.92)
-                        .map((c) => (
-                            <RenderOnMap lat={c.lat} lng={c.lng}>
+                        .map((c, i) => (
+                            <RenderOnMap lat={c.lat} lng={c.lng} key={i}>
                                 <FaMapMarker style={{ fontSize: "15px" }} />
                             </RenderOnMap>
                         ))}
