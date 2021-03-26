@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { IFlightSearchResoult } from "../services/ApiWrapper";
 import { FlightMap } from "./FlightMap";
+import { IReservation } from "../services/Database";
+import Swal from "sweetalert2";
 
 const CityContent = (props) => {
     const [temps, setTemps] = useState({ temps: new Array(24) });
@@ -176,12 +178,27 @@ const CityContent = (props) => {
                                     <div className={styles.ticketbuttons}>
                                         <Button
                                             name="reservation"
-                                            onClick={() => {
-                                                setCheckoutFlow("reservation");
+                                            onClick={async () => {
                                                 const arr = [];
                                                 for (let i = 0; i < flightQuantity; i++) arr.push({});
                                                 setReservationData([...arr]);
                                                 setFlightId(fr.id);
+
+                                                await fetch("/api/reservation", {
+                                                    method: "POST",
+                                                    body: JSON.stringify({
+                                                        date: flightDeparture,
+                                                        flight: fr.id,
+                                                        reservedAt: new Date().getTime(),
+                                                        status: "valid",
+                                                        tickets: flightQuantity,
+                                                        user: "",
+                                                    }),
+                                                });
+
+                                                await Swal.fire("Sucess!", "Your tickets have been sucessfuly reserved", "success");
+                                                
+                                                window.location.href = "/myReservations";
                                             }}
                                         >
                                             Make a reservation

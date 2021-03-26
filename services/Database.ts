@@ -59,8 +59,8 @@ export class Database {
         else return null;
     };
 
-    public CancleReservation = async (reservation: string, user: string): Promise<boolean> => {
-        let res = await this.reservations.updateOne({ user: new ObjectId(user), _id: new ObjectId(reservation) }, { status: "canceled" });
+    public CancelReservation = async (reservation: string, user: string): Promise<boolean> => {
+        let res = await this.reservations.updateOne({ user: user, _id: new ObjectId(reservation) }, { status: "canceled" });
         if (res.result.ok && res.modifiedCount == 1) return true;
         return false;
     };
@@ -167,11 +167,11 @@ interface IPopularPlace {
     image: string;
 }
 
-interface IReservation {
-    user: ObjectId;
+export interface IReservation {
+    user: string;
     reservedAt: string;
 
-    date: string;
+    date: number;
     flight: string;
     tickets: number;
     status: "valid" | "canceled";
