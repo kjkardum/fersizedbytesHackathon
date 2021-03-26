@@ -30,6 +30,7 @@ const CityContent = (props) => {
     const [loadingFlights, setLoadingFlights] = useState(true);
     const [flightResoults, setFlightResoults] = useState<IFlightSearchResoult>([]);
     const [flightPrice, setFlightPrice] = useState(0);
+    const [flightId, setFlightId] = useState("");
 
     const querryFlights = async () => {
         if (flightTo && flightFrom && flightDeparture && flightQuantity) {
@@ -180,6 +181,7 @@ const CityContent = (props) => {
                                                 const arr = [];
                                                 for (let i = 0; i < flightQuantity; i++) arr.push({});
                                                 setReservationData([...arr]);
+                                                setFlightId(fr.id);
                                             }}
                                         >
                                             Make a reservation
@@ -192,6 +194,7 @@ const CityContent = (props) => {
                                                 for (let i = 0; i < flightQuantity; i++) arr.push({});
                                                 setReservationData([...arr]);
                                                 setFlightPrice(fr.price.total);
+                                                setFlightId(fr.id);
                                             }}
                                         >
                                             Buy ticket
@@ -347,7 +350,18 @@ const CityContent = (props) => {
                         ))}
                     </Row>
                     <div className={styles.paypalwrapper}>
-                        <ReactPayPalButton flightId="testFlight" amount={flightQuantity * flightPrice}></ReactPayPalButton>
+                        <ReactPayPalButton
+                            flightId={flightId}
+                            amount={flightQuantity * flightPrice}
+                            order={{
+                                user: firebase.auth().currentUser.uid,
+                                bookedAt: new Date().getTime(),
+                                flight: flightId,
+                                tickets: reservationData.map(({ firstname, lastname, dateofbirth }) => {
+                                    return { birth: dateofbirth, name: firstname, surname: lastname };
+                                }),
+                            }}
+                        ></ReactPayPalButton>
                     </div>
                 </>
             )}

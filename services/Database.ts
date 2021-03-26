@@ -75,7 +75,7 @@ class DB {
     };
 
     public GetUserTickets = async (user: string): Promise<Array<ITicketOrder>> => {
-        return await this.tickets.find({ user: new ObjectId(user) }).toArray();
+        return await this.tickets.find({ user }).toArray();
     };
 
     public PushSearchHistory = async (code: string) => {
@@ -187,14 +187,13 @@ interface IReservation {
 
 interface IUser {}
 
-interface ITicketOrder {
-    user: ObjectId;
-    bookedAt: string;
+export interface ITicketOrder {
+    user: string;
+    bookedAt: number;
     tickets: Array<{
         name: string;
         surname: string;
         birth: string;
-        passport: string;
     }>;
     flight: string;
 }

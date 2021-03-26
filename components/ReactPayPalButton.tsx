@@ -1,8 +1,9 @@
 import { PayPalButton } from "react-paypal-button-v2";
 
 import Swal from "sweetalert2";
+import { ITicketOrder } from "../services/Database";
 
-const ReactPayPalButton = (props: { amount: number; flightId: string }) => {
+const ReactPayPalButton = (props: { amount: number; flightId: string, order: ITicketOrder }) => {
     return (
         <PayPalButton
             amount={props.amount}
@@ -12,7 +13,7 @@ const ReactPayPalButton = (props: { amount: number; flightId: string }) => {
                 Swal.fire("Sucess!", "Your tickets have been sucessfuly bought", "success");
 
                 return fetch("/api/purchase", {
-                    method: "post",
+                    method: "POST",
                     body: JSON.stringify({
                         orderID: data.orderID,
                         flightId: props.flightId,
