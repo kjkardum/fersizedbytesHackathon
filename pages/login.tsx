@@ -25,9 +25,11 @@ function main({ Component, pageProps }) {
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 var user = userCredential.user;
-                console.log(user);
+
+                let token = await user.getIdToken();
+                window.location.href = `/api/completeSignIn?token=${token}`;
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -40,11 +42,11 @@ function main({ Component, pageProps }) {
         firebase
             .auth()
             .signInWithPopup(googleLoginProvider)
-            .then((result) => {
-                var credential = result.credential;
+            .then(async (result) => {
                 var user = result.user;
 
-                console.log(user);
+                let token = await user.getIdToken();
+                window.location.href = `/api/completeSignIn?token=${token}`;
             })
             .catch((error) => {
                 var errorCode = error.code;
