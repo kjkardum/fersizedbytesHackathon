@@ -10,16 +10,6 @@ import * as jwt from "jsonwebtoken";
 
 dotenv.config();
 
-var client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
-
-var connected = false;
-
-client.connect(function (err) {
-    if (err) return console.log(err);
-    console.log("Connected successfully to server");
-    connected = true;
-});
-
 if (firebase.apps.length === 0 || firebase.apps.filter((a) => a.name == "admin").length === 0)
     firebase.initializeApp(
         {
@@ -42,14 +32,22 @@ class DB {
     destinationSearchHistory: Collection<IDestionationSearchHistory>;
 
     constructor() {
-        while (!connected) {}
+        var client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
 
-        const db = client.db("takeoff");
+        var connected = false;
 
-        this.reservations = db.collection("reservations");
-        this.tickets = db.collection("tickets");
-        this.users = db.collection("users");
-        this.destinationSearchHistory = db.collection("destinationSearchHistory");
+        client.connect((err) => {
+            if (err) return console.log(err);
+            console.log("Connected successfully to server");
+            connected = true;
+
+            const db = client.db("takeoff");
+
+            this.reservations = db.collection("reservations");
+            this.tickets = db.collection("tickets");
+            this.users = db.collection("users");
+            this.destinationSearchHistory = db.collection("destinationSearchHistory");
+        });
     }
 
     public Reserve = async (reservation: IReservation): Promise<string> => {
