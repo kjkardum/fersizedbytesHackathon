@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import styles from "../styles/NavBar.module.css";
-import { faEllipsisV, fas, faSearch, faHome, faPlane, faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV, fas, faSearch, faHome, faUser, faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileSearch from "./MobileSearch";
 
@@ -11,37 +12,57 @@ const NavBar = (props) => {
         <>
             <div className={styles.navbar}>
                 <div className={styles["navbar-nav"]}>
-                    <a className={styles["navbar-item"]} href="/">
-                        Home
-                    </a>
+                    <Link href="/">
+                        <a className={styles["navbar-item"]} href="#">
+                            Home
+                        </a>
+                    </Link>
+                    <Link href="/myReservations">
+                        <a className={styles["navbar-item"]} href="#">
+                            My Reservations
+                        </a>
+                    </Link>
                     {/* <a className={styles["navbar-item"]} href="/buy">
                         Buy Flight
                     </a>
                     <a className={styles["navbar-item"]} href="/reserve">
                         Make a reservation
                     </a> */}
-                    <a className={styles["navbar-item"]} href="/login">
-                        Login
-                    </a>
+                    <Link href="/login">
+                        <a className={styles["navbar-item"]} href="#">
+                            Login
+                        </a>
+                    </Link>
                 </div>
                 <div className={styles.navbuttons}>
                     <div className={`${styles.navbox} bigshadow` + (navbox ? ` ${styles.navboxactive}` : "")}>
-                        <a className={styles.navboxlink} href="/" onClick={() => toggleNavbox(false)}>
-                            <FontAwesomeIcon icon={faHome} className={styles.navboxicon}></FontAwesomeIcon> Home
-                        </a>
+                        <Link href="/">
+                            <a className={styles.navboxlink} href="#" onClick={() => toggleNavbox(false)}>
+                                <FontAwesomeIcon icon={faHome} className={styles.navboxicon}></FontAwesomeIcon> Home
+                            </a>
+                        </Link>
+                        <Link href="/myReservations">
+                            <a className={styles.navboxlink} href="#" onClick={() => toggleNavbox(false)}>
+                                <FontAwesomeIcon icon={faSuitcaseRolling} className={styles.navboxicon}></FontAwesomeIcon> My Reservations
+                            </a>
+                        </Link>
                         {/*<a className={styles.navboxlink} href="/buy" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faPlane} className={styles.navboxicon}></FontAwesomeIcon> Buy tickets
                         </a>
                         <a className={styles.navboxlink} href="/reserve" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faAddressCard} className={styles.navboxicon}></FontAwesomeIcon> Reservations
                         </a> */}
-                        <a className={styles.navboxlink} href="/login" onClick={() => toggleNavbox(false)}>
-                            <FontAwesomeIcon icon={faUser} className={styles.navboxicon}></FontAwesomeIcon> Login
-                        </a>
+                        <Link href="/login">
+                            <a className={styles.navboxlink} href="#" onClick={() => toggleNavbox(false)}>
+                                <FontAwesomeIcon icon={faUser} className={styles.navboxicon}></FontAwesomeIcon> Login
+                            </a>
+                        </Link>
                     </div>
-                    <div className={styles.navbutton}>
-                        <FontAwesomeIcon icon={faSearch} className={styles.navicon} onClick={() => toggleSearchview(true)} />
-                    </div>
+                    {!props.hideMobileSearch && (
+                        <div className={styles.navbutton}>
+                            <FontAwesomeIcon icon={faSearch} className={styles.navicon} onClick={() => toggleSearchview(true)} />
+                        </div>
+                    )}
                     <div className={styles.navbutton}>
                         <FontAwesomeIcon icon={faEllipsisV} className={styles.navicon} onClick={() => toggleNavbox(!navbox)} />
                     </div>

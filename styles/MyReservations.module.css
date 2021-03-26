@@ -1,0 +1,16 @@
+.minheightblock {
+    min-height: 600px;
+    padding: 3rem;
+}
+.reservationstitle {
+    font-size: 3rem;
+}
+@media only screen and (max-width: 600px) {
+    .minheightblock {
+        padding: 1rem;
+    }
+    .reservationstitle {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+}
