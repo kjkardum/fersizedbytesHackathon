@@ -44,7 +44,7 @@ function main({ Component, pageProps }) {
                                 <input className={styles.basicinput} defaultValue={pp1Url} onKeyPress={(e) => setPp1Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp1Description} onKeyPress={(e) => setPp1Description(e.target.value)}></textarea>
+                                <textarea style={{ height: "300px", resize: "none", margin: "15px" }} defaultValue={pp1Description} onKeyPress={(e) => setPp1Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
@@ -72,7 +72,7 @@ function main({ Component, pageProps }) {
                                 <input className={styles.basicinput} defaultValue={pp2Url} onKeyPress={(e) => setPp2Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp2Description} onKeyPress={(e) => setPp2Description(e.target.value)}></textarea>
+                                <textarea style={{ height: "300px", resize: "none", margin: "15px" }} defaultValue={pp2Description} onKeyPress={(e) => setPp2Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
