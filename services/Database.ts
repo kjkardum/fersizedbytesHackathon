@@ -2,27 +2,54 @@ import { MongoClient, Collection, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 import { string } from "joi";
 
+import { IncomingMessage } from "http";
+
+import firebase from "firebase-admin";
+import * as crypto from "crypto";
+import * as jwt from "jsonwebtoken";
+
 dotenv.config();
 
-const client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
+var client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
+
+var connected = false;
 
 client.connect(function (err) {
+    if (err) return console.log(err);
     console.log("Connected successfully to server");
+    connected = true;
 });
 
-export class Database {
+if (firebase.apps.length === 0 || firebase.apps.filter((a) => a.name == "admin").length === 0)
+    firebase.initializeApp(
+        {
+            credential: firebase.credential.cert({
+                projectId: process.env.PROJECT_ID,
+                privateKey: process.env.PRIVATE_KEY,
+                clientEmail: process.env.CLIENT_EMAIL,
+            }),
+            databaseURL: "https://hackathon-e676b.firebaseapp.com",
+        },
+        "admin"
+    );
+
+const admin = firebase.app("admin");
+
+class DB {
     reservations: Collection<IReservation>;
     tickets: Collection<ITicketOrder>;
     users: Collection<IUser>;
     destinationSearchHistory: Collection<IDestionationSearchHistory>;
 
     constructor() {
+        while (!connected) {}
+
         const db = client.db("takeoff");
 
         this.reservations = db.collection("reservations");
         this.tickets = db.collection("tickets");
         this.users = db.collection("users");
-        this.destinationSearchHistory = db.collection("destinationSearchHIstory");
+        this.destinationSearchHistory = db.collection("destinationSearchHistory");
     }
 
     public Reserve = async (reservation: IReservation): Promise<string> => {
@@ -93,7 +120,20 @@ export class Database {
     public GetSearchData = async (code: string): Promise<IDestionationSearchHistory> => {
         return this.destinationSearchHistory.findOne({ code });
     };
+
+    public GenerateAuthToken = async (userToken: string): Promise<string> => {
+        let user = await firebase.app("admin").auth().verifyIdToken(userToken, true);
+
+        let authCookie = {
+            tok: crypto.randomBytes(18).toString("base64"),
+            uid: user.uid,
+        };
+
+        return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
+    };
 }
+
+export const Database = new DB();
 
 interface IReservation {
     user: ObjectId;
@@ -132,4 +172,9 @@ interface IPopularDestination {
     image: string;
     icons: Array<string>;
     description: string;
+}
+
+interface IUser {
+    level: "user" | "admin" | "worker";
+    uid: string;
 }

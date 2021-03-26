@@ -17,8 +17,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let q = current_url.searchParams.get("q");
     let name = airports.filter((c) => q.toLowerCase() == c.iata_code.toLowerCase())[0]?.name;
 
-    let data = await (await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${name}`)).json();
+    let data = await (await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${name}&days=3`)).json();
 
     res.setHeader("Content-Type", "application/json");
-    res.end(safeStringify(data.forecast.forecastday[0].hour.map((c) => c.temp_c)));
+    console.log(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${name}&days=3`);
+    res.end(safeStringify({ temps: safeStringify(data.forecast.forecastday[0].hour.map((c) => c.temp_c)), stats: data.forecast.forecastday.map((el) => el.day) }));
 };

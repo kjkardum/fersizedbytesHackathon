@@ -20,6 +20,8 @@ steps:
     - "MONGODB_DB_CONNECTION_STRING=${_MONGODB_DB_CONNECTION_STRING}"
     - "MAPS_API_KEY=${_MAPS_API_KEY}"
     - "WEATHER_API_KEY=${_WEATHER_API_KEY}"
+    - "JWT_SIGN_PRIVATE_KEY=${_JWT_SIGN_PRIVATE_KEY}"
+
 - name: node
   entrypoint: yarn
   args: ["build"]
