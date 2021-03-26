@@ -29,22 +29,35 @@ export class FlightMap extends React.Component<IMapProps, IMapState> {
                     {airports
                         .filter((_) => Math.random() > 0.92)
                         .map((c) => (
-                            <FaMapMarker lat={c.lat} lng={c.lng} text="Marker" style={{ fontSize: "15px" }} />
+                            <RenderOnMap lat={c.lat} lng={c.lng}>
+                                <FaMapMarker style={{ fontSize: "15px" }} />
+                            </RenderOnMap>
                         ))}
 
                     {
                         // ||     ||
                         // \/ FER \/
                     }
-                    <FaMapMarker lat={45.742931} lng={16.068778} text="Marker" style={{ fontSize: "15px" }} />
+                    <RenderOnMap lat={45.742931} lng={16.068778}>
+                        <FaMapMarker style={{ fontSize: "15px" }} />
+                    </RenderOnMap>
 
-                    <FaMapMarker lat={43.538944} lng={16.297964} text="Marker" style={{ fontSize: "15px" }} />
-                    <FaMapMarker lat={42.561353} lng={18.268244} text="Marker" style={{ fontSize: "15px" }} />
+                    <RenderOnMap lat={43.538944} lng={16.297964}>
+                        <FaMapMarker style={{ fontSize: "15px" }} />
+                    </RenderOnMap>
+                    <RenderOnMap lat={42.561353} lng={18.268244}>
+                        <FaMapMarker style={{ fontSize: "15px" }} />
+                    </RenderOnMap>
                 </GoogleMapReact>
             </div>
         );
     }
 }
+
+let RenderOnMap = (props: { lat: number; lng: number; children: React.ReactNode }) => {
+    //@ts-ignore
+    return <div {...{ lat: props.lat, lng: props.lng }}>{props.children}</div>;
+};
 
 const mapStyle = [
     {

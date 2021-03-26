@@ -132,6 +132,17 @@ class DB {
         return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
     };
 
+    public ValiadateAuthToken = async (userToken: string): Promise<string> => {
+        let user = await firebase.app("admin").auth().verifyIdToken(userToken, true);
+
+        let authCookie = {
+            tok: crypto.randomBytes(18).toString("base64"),
+            uid: user.uid,
+        };
+
+        return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
+    };
+
     public AddPopularPlace = async (popularPlace: IPopularPlace): Promise<string> => {
         let res = await this.popularPlaces.insertOne(popularPlace);
         if (res.result.ok && res.insertedCount == 1) return res.insertedId.toHexString();
