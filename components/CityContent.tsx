@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/CityContent.module.css";
 import { Line } from "react-chartjs-2";
 import firebase from "firebase/app";
@@ -11,6 +11,7 @@ import { Row, Col, Form, Button, FormControl, Card } from "react-bootstrap";
 import { array } from "joi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { IFlightSearchResoult } from "../services/ApiWrapper";
 
 const CityContent = (props) => {
     const [temps, setTemps] = useState({ temps: new Array(24) });
@@ -18,14 +19,33 @@ const CityContent = (props) => {
     const [flightTo, setFlightTo] = useState(props.city);
     const [flightFrom, setFlightFrom] = useState("");
     const [flightDeparture, setFlightDeparture] = useState("");
-    const [flightArrival, setFlightArrival] = useState("");
     const [flightQuantity, setFlightQuantity] = useState(1);
-    const [checkoutFlow, setCheckoutFlow] = useState("basicInfo");
+    const [checkoutFlow, setCheckoutFlow] = useState<"reservation" | "basicInfo" | "checkout">("basicInfo");
     const [lastCity, setLastCity] = useState("");
     const [loading, setLoading] = useState(true);
     const [hotelData, setHotelData] = useState([]);
     const [reservationData, setReservationData] = useState([]);
     const [address, setAddress] = useState({ name: "", email: "", address1: "", address2: "", city: "", state: "", country: "" });
+    const [loadingFlights, setLoadingFlights] = useState(true);
+    const [flightResoults, setFlightResoults] = useState<IFlightSearchResoult>([]);
+
+    const querryFlights = async () => {
+        if (flightTo && flightFrom && flightDeparture && flightQuantity) {
+            setLoadingFlights(true);
+            let res = await fetch("/api/flights", {
+                method: "POST",
+                body: JSON.stringify({
+                    originLocationCode: flightFrom,
+                    destinationLocationCode: flightTo,
+                    departureDate: flightDeparture,
+                    adults: flightQuantity,
+                }),
+            });
+            setLoadingFlights(false);
+            console.log(res);
+            setFlightResoults(await res.json());
+        }
+    };
 
     if (props.city && props.city != lastCity) {
         fetch("/api/getDestinationInfo?q=" + props.city)
@@ -45,6 +65,10 @@ const CityContent = (props) => {
         setCheckoutFlow("basicInfo");
         setLoading(true);
     }
+
+    if (checkoutFlow == "reservation") {
+    }
+
     let inputTimer;
     return (
         <div className={styles.citycontent}>
@@ -82,21 +106,39 @@ const CityContent = (props) => {
                         <AutoComplete
                             setCity={(city) => {
                                 setFlightFrom(city);
+                                querryFlights();
                             }}
                             searchValue={search}
                         ></AutoComplete>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         Departure
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightDeparture(e.target.value)} id="departure" size="lg" name="departure" type="date" placeholder="Departure" />
+                        <Form.Control
+                            onInput={(e) => {
+                                checkoutFlow == "basicInfo" && setFlightDeparture(e.target.value);
+                                querryFlights();
+                            }}
+                            id="departure"
+                            size="lg"
+                            name="departure"
+                            type="date"
+                            placeholder="Departure"
+                        />
                     </Col>
-                    <Col sm={2}>
-                        Arrival
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightArrival(e.target.value)} id="arrival" size="lg" name="arrival" type="date" placeholder="Arrival" />
-                    </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         Number of Tickets
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightQuantity(e.target.value)} min="1" max="15" size="lg" name="quantity" type="number" placeholder="Number of tickets" />
+                        <Form.Control
+                            onInput={(e) => {
+                                checkoutFlow == "basicInfo" && setFlightQuantity(e.target.value);
+                                querryFlights();
+                            }}
+                            min="1"
+                            max="15"
+                            size="lg"
+                            name="quantity"
+                            type="number"
+                            placeholder="Number of tickets"
+                        />
                     </Col>
                 </Form.Row>
                 <Button variant="primary" type="submit" name="reservation" className={styles.submitbutton}>
@@ -107,6 +149,21 @@ const CityContent = (props) => {
                 </Button>
             </Form>
             <hr />
+
+            {loading ? (
+                <div className="loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            ) : (
+                <div>
+                    {flightResoults.map((fr, i) => {
+                        return <div></div>;
+                    })}
+                </div>
+            )}
+
             {checkoutFlow == "basicInfo" && (
                 <>
                     {loading ? (

@@ -57,7 +57,7 @@ export interface ILocationSearchResoult {
     };
 }
 
-export const VFlightSearch = Joi.object<IFlightSearchResoult>({
+export const VFlightSearch = Joi.object<IFlightSearchSearch>({
     originLocationCode: Joi.string().uppercase().length(3),
     destinationLocationCode: Joi.string().uppercase().length(3),
     departureDate: Joi.string(),
@@ -70,8 +70,8 @@ export interface IFlightSearchSearch {
     adults: string;
 }
 
-export interface IFlightSearchResoult {
-    [key: string]: {
+export interface IFlightSearchResoult extends Array<any> {
+    [key: number]: {
         type: "flight-offer";
         id: number;
         source: string;

@@ -9,14 +9,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let api = new APIWrapper();
     res.setHeader("Content-Type", "application/json");
 
-    if (req.body && req.body.length > 1) return res.end({ erorr: "No body" });
+    console.log(req.body);
+
+    console.log(typeof req.body);
 
     let data = JSON.parse(req.body) as IFlightSearchSearch;
 
-    let val = VFlightSearch.validate(data);
-    if (val.error) return res.end({ erorr: val.error });
+    console.table(data);
 
-    if (req.method == "GET") {
+    if (req.method == "POST") {
         let flights = await api.SearchFlights(data);
 
         return res.end(
@@ -26,5 +27,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         );
     }
 
-    return res.end();
+    return res.end("Invalid Request");
 };
