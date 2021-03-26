@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.table(data);
 
     if (req.method == "POST") {
-        let flights = await api.SearchFlights(data);
+        let flights = (await api.SearchFlights(data)).slice(0, 3);
 
         return res.end(
             safeStringify({
