@@ -10,7 +10,10 @@ import safeStringify from "../../util/safeStringify";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     let api = new APIWrapper();
 
-    let pp = await Database.GetPopularPlaces();
+    let db = new Database();
+    await db.init();
+
+    let pp = await db.GetPopularPlaces();
 
     res.setHeader("Content-Type", "application/json");
 
@@ -26,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             })
         );
     } else if (req.method == "POST") {
-        Database.UpdatePopularPlace({ index: i, ...data });
+        db.UpdatePopularPlace({ index: i, ...data });
         res.end();
     }
     return res.end("Invalid Request");

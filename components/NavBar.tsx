@@ -5,7 +5,7 @@ import { faEllipsisV, fas, faSearch, faHome, faUser, faSuitcaseRolling } from "@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileSearch from "./MobileSearch";
 
-const NavBar = (props) => {
+const NavBar = (props: { user: boolean; hideMobileSearch?: boolean; setCity: (city: any) => void }) => {
     let [navbox, toggleNavbox] = useState(false);
     let [searchview, toggleSearchview] = useState(false);
     return (
@@ -30,7 +30,7 @@ const NavBar = (props) => {
                     </a> */}
                     <Link href="/login">
                         <a className={styles["navbar-item"]} href="#">
-                            Login
+                            {props.user ? "Logout" : "Login"}
                         </a>
                     </Link>
                 </div>
@@ -54,7 +54,8 @@ const NavBar = (props) => {
                         </a> */}
                         <Link href="/login">
                             <a className={styles.navboxlink} href="#" onClick={() => toggleNavbox(false)}>
-                                <FontAwesomeIcon icon={faUser} className={styles.navboxicon}></FontAwesomeIcon> Login
+                                <FontAwesomeIcon icon={faUser} className={styles.navboxicon}></FontAwesomeIcon>
+                                {props.user ? "Logout" : "Login"}
                             </a>
                         </Link>
                     </div>

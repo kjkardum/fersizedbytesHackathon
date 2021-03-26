@@ -25,32 +25,33 @@ if (firebase.apps.length === 0 || firebase.apps.filter((a) => a.name == "admin")
 
 const admin = firebase.app("admin");
 
-class DB {
+export class Database {
     reservations: Collection<IReservation>;
     tickets: Collection<ITicketOrder>;
     users: Collection<IUser>;
     destinationSearchHistory: Collection<IDestionationSearchHistory>;
     popularPlaces: Collection<IPopularPlace>;
 
-    constructor() {
-        var client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
+    client: MongoClient;
+    constructor() {}
 
-        var connected = false;
+    public init = async () => {
+        let err,
+            client = await new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING).connect();
 
-        client.connect((err) => {
-            if (err) return console.log(err);
-            console.log("Connected successfully to server");
-            connected = true;
+        this.client = client;
+        if (err) return console.log(err);
 
-            const db = client.db("takeoff");
+        console.log("Connected successfully to server");
 
-            this.reservations = db.collection("reservations");
-            this.tickets = db.collection("tickets");
-            this.users = db.collection("users");
-            this.destinationSearchHistory = db.collection("destinationSearchHistory");
-            this.popularPlaces = db.collection("popularPlaces");
-        });
-    }
+        const db = this.client.db("takeoff");
+
+        this.reservations = db.collection("reservations");
+        this.tickets = db.collection("tickets");
+        this.users = db.collection("users");
+        this.destinationSearchHistory = db.collection("destinationSearchHistory");
+        this.popularPlaces = db.collection("popularPlaces");
+    };
 
     public Reserve = async (reservation: IReservation): Promise<string> => {
         let res = await this.reservations.insertOne(reservation);
@@ -65,7 +66,7 @@ class DB {
     };
 
     public GetUserReservations = async (user: string): Promise<Array<IReservation>> => {
-        return await this.reservations.find({ user: new ObjectId(user) }).toArray();
+        return await this.reservations.find({}).toArray(); // todo user: new ObjectId(user)
     };
 
     public BuyTicket = async (ticket: ITicketOrder): Promise<string> => {
@@ -132,15 +133,9 @@ class DB {
         return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
     };
 
-    public ValiadateAuthToken = async (userToken: string): Promise<string> => {
-        let user = await firebase.app("admin").auth().verifyIdToken(userToken, true);
-
-        let authCookie = {
-            tok: crypto.randomBytes(18).toString("base64"),
-            uid: user.uid,
-        };
-
-        return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
+    public ValiadateAuthToken = (userToken: string): IUser => {
+        let x = jwt.verify(userToken, process.env.JWT_SIGN_PRIVATE_KEY) as any;
+        return x;
     };
 
     public AddPopularPlace = async (popularPlace: IPopularPlace): Promise<string> => {
@@ -165,9 +160,6 @@ class DB {
         return await this.popularPlaces.find({}).toArray();
     };
 }
-
-export const Database = new DB();
-
 interface IPopularPlace {
     index: number;
     name: string;

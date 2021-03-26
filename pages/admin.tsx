@@ -1,3 +1,4 @@
+import { NextPageContext } from "next";
 import Head from "next/head";
 import React, { useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
@@ -5,7 +6,7 @@ import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import styles from "../styles/Admin.module.css";
 
-function main({ Component, pageProps }) {
+export default function admin(props: { user: boolean }) {
     const [pp1Name, setPp1Name] = useState("");
     const [pp1Description, setPp1Description] = useState("");
     const [pp1Url, setPp1Url] = useState("");
@@ -27,7 +28,7 @@ function main({ Component, pageProps }) {
                 <title>Takeoff</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar setCity={(city) => {}}></NavBar>
+            <NavBar user={props.user} setCity={(city) => {}}></NavBar>
             <main className={styles.main}>
                 <div className={styles.topblock}>
                     <h2>Admin page</h2>
@@ -98,4 +99,7 @@ function main({ Component, pageProps }) {
     );
 }
 
-export default main;
+
+export async function getServerSideProps(ctx: NextPageContext) {
+    return { props: { user: ctx.req.headers.cookie["X-T"] ? true : false } };
+}

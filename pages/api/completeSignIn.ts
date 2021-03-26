@@ -13,7 +13,10 @@ export default async (req: http.IncomingMessage, res: http.ServerResponse) => {
             search[c] = v;
         });
 
-    let authToken = await Database.GenerateAuthToken(search["token"]);
+    let db = new Database();
+    await db.init();
+
+    let authToken = await db.GenerateAuthToken(search["token"]);
 
     res.writeHead(302, {
         "Set-Cookie": `X-T=${authToken}; Path=/; HttpOnly`,

@@ -9,8 +9,9 @@ import { Database } from "../services/Database";
 import NavBar from "../components/NavBar";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { FlightMap } from "../components/FlightMap";
+import { NextPageContext } from "next";
 
-function main({ Component, pageProps }) {
+export default function myReservation(props: { user: boolean }) {
     const [flightResoults, setFlightResoults] = useState([]);
 
     return (
@@ -19,7 +20,7 @@ function main({ Component, pageProps }) {
                 <title>Takeoff</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar hideMobileSearch={true}></NavBar>
+            <NavBar user={props.user} hideMobileSearch={true} setCity={() => {}}></NavBar>
             <main className={styles.main}>
                 <AnimatedBackground></AnimatedBackground>
                 <div className={styles.topblock}>
@@ -70,11 +71,6 @@ function main({ Component, pageProps }) {
     );
 }
 
-export async function getServerSideProps() {
-    //Database.GetUserReservations();
-
-    // Pass data to the page via props
-    return { props: { test: "test" } };
+export async function getServerSideProps(ctx: NextPageContext) {
+    return { props: { user: ctx.req.headers.cookie["X-T"] ? true : false } };
 }
-
-export default main;

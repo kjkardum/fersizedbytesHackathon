@@ -10,8 +10,9 @@ import React, { useState } from "react";
 import { quotes } from "../services/quotes";
 import Footer from "../components/Footer";
 import CityContent from "../components/CityContent";
+import { NextPageContext } from "next";
 
-export default function Home() {
+export default function Home(props: { user: boolean }) {
     const [search, setSearch] = useState("");
     const [quote, setQuote] = useState(quotes[Math.floor(Math.random() * quotes.length)]);
 
@@ -25,7 +26,7 @@ export default function Home() {
                 <title>Takeoff</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar setCity={(city) => setCity(city)}></NavBar>
+            <NavBar user={props.user} setCity={(city) => setCity(city)}></NavBar>
             <main className={styles.main}>
                 <AnimatedBackground></AnimatedBackground>
                 <div className={styles.topblock}>
@@ -64,4 +65,8 @@ export default function Home() {
             </main>
         </div>
     );
+}
+
+export async function getServerSideProps(ctx: NextPageContext) {
+    return { props: { user: ctx.req.headers?.cookie?.split("X-T=")?.[1] ? true : false } };
 }

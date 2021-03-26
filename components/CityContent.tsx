@@ -354,7 +354,7 @@ const CityContent = (props) => {
                             flightId={flightId}
                             amount={flightQuantity * flightPrice}
                             order={{
-                                user: firebase.auth().currentUser.uid,
+                                user: "",
                                 bookedAt: new Date().getTime(),
                                 flight: flightId,
                                 tickets: reservationData.map(({ firstname, lastname, dateofbirth }) => {
