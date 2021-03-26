@@ -12,6 +12,7 @@ interface IMapProps {
         lng: number;
     };
     zoom: number;
+    height?: string;
 }
 
 interface IMapState {}
@@ -24,7 +25,7 @@ export class FlightMap extends React.Component<IMapProps, IMapState> {
 
     render() {
         return (
-            <div style={{ height: "100vh", width: "100%" }}>
+            <div style={{ height: this.props.height ? this.props.height : "100vh", width: "100%" }}>
                 <GoogleMapReact options={{ styles: mapStyle }} bootstrapURLKeys={{ key: "AIzaSyBMfeS0ukQm-XQWx12jpFY-pqQ0CxUYDI8" }} defaultCenter={this.props.center} defaultZoom={this.props.zoom}>
                     {airports
                         .filter((_) => Math.random() > 0.92)

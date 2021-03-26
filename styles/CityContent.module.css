@@ -55,6 +55,12 @@
     width: 80%;
     margin: 50px 10%;
     position: relative;
+    height: 112px;
+    transition: 0.3s all;
+    overflow: hidden;
+}
+.ticket:hover {
+    height: 500px;
 }
 .ticketright {
     position: absolute;

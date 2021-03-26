@@ -12,6 +12,7 @@ import { array } from "joi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { IFlightSearchResoult } from "../services/ApiWrapper";
+import { FlightMap } from "./FlightMap";
 
 const CityContent = (props) => {
     const [temps, setTemps] = useState({ temps: new Array(24) });
@@ -197,6 +198,15 @@ const CityContent = (props) => {
                                         </Button>
                                     </div>
                                 </div>
+                                <br />
+                                <FlightMap
+                                    height="360px"
+                                    center={{
+                                        lat: 45,
+                                        lng: 15,
+                                    }}
+                                    zoom={6}
+                                ></FlightMap>
                             </div>
                         );
                     })}
