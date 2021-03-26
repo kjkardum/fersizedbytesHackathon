@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import firebase from "firebase/app";
 import styles from "../styles/Login.module.css";
 import { Button } from "react-bootstrap";
+import SEO from "../components/SEO";
 
 import "firebase/auth";
 
@@ -41,10 +42,7 @@ function main({ Component, pageProps }) {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="Registration"></SEO>
             <main className={styles.main}>
                 <div className={styles.topblock}>
                     <Link href="/">

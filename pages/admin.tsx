@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
+import SEO from "../components/SEO";
 import styles from "../styles/Admin.module.css";
 
 export default function admin(props: { user: boolean }) {
@@ -24,10 +25,7 @@ export default function admin(props: { user: boolean }) {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="Admin"></SEO>
             <NavBar user={props.user} setCity={(city) => {}}></NavBar>
             <main className={styles.main}>
                 <div className={styles.topblock}>
@@ -98,7 +96,6 @@ export default function admin(props: { user: boolean }) {
         </div>
     );
 }
-
 
 export async function getServerSideProps(ctx: NextPageContext) {
     return { props: { user: ctx.req.headers.cookie["X-T"] ? true : false } };

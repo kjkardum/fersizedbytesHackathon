@@ -10,16 +10,14 @@ import NavBar from "../components/NavBar";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { FlightMap } from "../components/FlightMap";
 import { NextPageContext } from "next";
+import SEO from "../components/SEO";
 
 export default function myReservation(props: { user: boolean }) {
     const [flightResoults, setFlightResoults] = useState([]);
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Takeoff</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEO title="My Reservations"></SEO>
             <NavBar user={props.user} hideMobileSearch={true} setCity={() => {}}></NavBar>
             <main className={styles.main}>
                 <AnimatedBackground></AnimatedBackground>
