@@ -38,17 +38,17 @@ function main({ Component, pageProps }) {
                             <Card style={{ width: "90%", height: "100%", margin: "auto" }}>
                                 <h4>Set Featured post 1 on homepage</h4>
                                 <p>Name:</p>
-                                <input className={styles.basicinput} defaultValue={pp1Name} onKeyPress={(e) => setPp1Name(e.target.value)}></input>
+                                <input className={styles.basicinput} defaultValue={pp1Name} onKeyPress={(e: any) => setPp1Name(e.target.value)}></input>
                                 <br />
                                 <p>Url:</p>
-                                <input className={styles.basicinput} defaultValue={pp1Url} onKeyPress={(e) => setPp1Url(e.target.value)}></input>
+                                <input className={styles.basicinput} defaultValue={pp1Url} onKeyPress={(e: any) => setPp1Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none", margin: "15px" }} defaultValue={pp1Description} onKeyPress={(e) => setPp1Description(e.target.value)}></textarea>
+                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp1Description} onKeyPress={(e: any) => setPp1Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
-                                        fetch("localhost:3000/featured?i=0", {
+                                        fetch("/api/featured?i=0", {
                                             method: "POST",
                                             headers: {
                                                 Accept: "application/json",
@@ -66,17 +66,17 @@ function main({ Component, pageProps }) {
                             <Card style={{ width: "90%", height: "100%", margin: "auto" }}>
                                 <h4>Set Featured post 2 on homepage</h4>
                                 <p>Name:</p>
-                                <input className={styles.basicinput} defaultValue={pp2Name} onKeyPress={(e) => setPp2Name(e.target.value)}></input>
+                                <input className={styles.basicinput} defaultValue={pp2Name} onKeyPress={(e: any) => setPp2Name(e.target.value)}></input>
                                 <br />
                                 <p>Url:</p>
-                                <input className={styles.basicinput} defaultValue={pp2Url} onKeyPress={(e) => setPp2Url(e.target.value)}></input>
+                                <input className={styles.basicinput} defaultValue={pp2Url} onKeyPress={(e: any) => setPp2Url(e.target.value)}></input>
                                 <br />
                                 <p>Description:</p>
-                                <textarea style={{ height: "300px", resize: "none", margin: "15px" }} defaultValue={pp2Description} onKeyPress={(e) => setPp2Description(e.target.value)}></textarea>
+                                <textarea style={{ height: "300px", resize: "none" }} defaultValue={pp2Description} onKeyPress={(e: any) => setPp2Description(e.target.value)}></textarea>
                                 <br />
                                 <Button
                                     onClick={() => {
-                                        fetch("localhost:3000/featured?i=1", {
+                                        fetch("/api/featured?i=1", {
                                             method: "POST",
                                             headers: {
                                                 Accept: "application/json",
