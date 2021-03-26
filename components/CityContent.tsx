@@ -122,7 +122,7 @@ const CityContent = (props) => {
                             <Row>
                                 {hotelData.map((e, i) => (
                                     <Col md={4} key={e.hotel.name}>
-                                        {e.hotel.media && <img className={`${styles.hotelimage} bigshadow`} src={i == 1 ? "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" : i == 2 ? "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1225&q=80" : e.hotel.media[0].uri}></img>}
+                                        <div className={styles.hotelwrapper}>{e.hotel.media && <img className={`${styles.hotelimage} bigshadow`} src={i == 1 ? "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" : i == 2 ? "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1225&q=80" : e.hotel.media[0].uri}></img>}</div>
 
                                         <div className={styles.hoteltitle}>{e.hotel.name}</div>
                                         <div className={styles.hoteldescription}>{e.offers[0].room.description.text}</div>
