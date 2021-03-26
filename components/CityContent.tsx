@@ -241,7 +241,7 @@ const CityContent = (props) => {
                         ))}
                     </Row>
                     <div className={styles.paypalwrapper}>
-                        <ReactPayPalButton amount={5}></ReactPayPalButton>
+                        <ReactPayPalButton flightId="testFlight" amount={5}></ReactPayPalButton>
                     </div>
                 </>
             )}
