@@ -15,10 +15,10 @@ const HomeContent = (props) => (
 
         <FlightMap
             center={{
-                lat: 0,
-                lng: 0,
+                lat: 45,
+                lng: 15,
             }}
-            zoom={1}
+            zoom={6}
         />
     </div>
 );
