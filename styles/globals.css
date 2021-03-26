@@ -28,6 +28,16 @@ a {
     max-height: 700px;
 }
 
+#flightFromSearch + ul {
+    max-height: 0;
+    transition: 0.3s all;
+    width: 98%;
+    top: 4.7rem;
+}
+#flightFromSearch:focus + ul {
+    max-height: 700px;
+}
+
 .loader {
     text-align: center;
 }

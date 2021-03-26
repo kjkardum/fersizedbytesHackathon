@@ -27,7 +27,16 @@
     transform: translateX(-50%);
 }
 .usericon {
-    margin-bottom: 1rem;
+    margin: 2.5rem;
+}
+.paypalwrapper {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+}
+.passengers {
+    justify-content: center;
 }
 @media only screen and (max-width: 600px) {
     .citycontent {
