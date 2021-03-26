@@ -72,7 +72,7 @@ const CityContent = (props) => {
                                     setSearch(e.target.value);
                                 }, 50);
                             }}
-                            autocomplete="off"
+                            autoComplete="off"
                             onInput={(e) => checkoutFlow == "basicInfo" && setFlightFrom(e.target.value)}
                             id="flightFromSearch"
                             size="lg"
@@ -128,6 +128,7 @@ const CityContent = (props) => {
                                     </Col>
                                 ))}
                             </Row>
+                            <div className={styles.hotelstitle}>Current weather at your destination</div>
                             <Row>
                                 <Col>
                                     <Card style={{ textAlign: "center", height: "100%" }}>
@@ -138,7 +139,7 @@ const CityContent = (props) => {
                                                 labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
                                                 datasets: [
                                                     {
-                                                        data: JSON.parse(temps.temps),
+                                                        data: JSON.parse(temps.temps as any),
                                                         label: "Temperature",
                                                         borderColor: "#3e95cd",
                                                         fill: true,
