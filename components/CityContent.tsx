@@ -7,13 +7,13 @@ import { firebaseConfig } from "../services/config";
 
 import AutoComplete from "../components/AutoComplete";
 import ReactPayPalButton from "../components/ReactPayPalButton";
-import { Row, Col, Form, Button, FormControl } from "react-bootstrap";
+import { Row, Col, Form, Button, FormControl, Card } from "react-bootstrap";
 import { array } from "joi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const CityContent = (props) => {
-    const [temps, setTemps] = useState(new Array(24));
+    const [temps, setTemps] = useState({ temps: new Array(24) });
     const [search, setSearch] = useState("");
     const [flightTo, setFlightTo] = useState(props.city);
     const [flightFrom, setFlightFrom] = useState("");
@@ -32,7 +32,6 @@ const CityContent = (props) => {
             .then((data) => data.json())
             .then((data) => {
                 setHotelData(data);
-                console.log(data);
                 setLoading(false);
             })
             .catch((err) => console.log(err));
@@ -129,21 +128,68 @@ const CityContent = (props) => {
                                     </Col>
                                 ))}
                             </Row>
-                            <Line
-                                data={{
-                                    labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
-                                    datasets: [
-                                        {
-                                            data: temps,
-                                            label: "Temperature",
-                                            borderColor: "#3e95cd",
-                                            fill: false,
-                                        },
-                                    ],
-                                }}
-                                width={80}
-                                height={20}
-                            ></Line>
+                            <Row>
+                                <Col>
+                                    <Card style={{ textAlign: "center", height: "100%" }}>
+                                        <h3 style={{ margin: "15px" }}>Temperature today</h3>
+                                        <Line
+                                            data={{
+                                                type: "line",
+                                                labels: Array.from(Array(24).keys()).map((_, j) => j + "h"),
+                                                datasets: [
+                                                    {
+                                                        data: JSON.parse(temps.temps),
+                                                        label: "Temperature",
+                                                        borderColor: "#3e95cd",
+                                                        fill: true,
+                                                    },
+                                                ],
+                                            }}
+                                        ></Line>
+                                    </Card>
+                                </Col>
+                                <Col>
+                                    <Row>
+                                        {temps.stats.map((el, i) => {
+                                            return (
+                                                <Col>
+                                                    <Card style={{ padding: "20px", margin: "5px" }}>
+                                                        <p>
+                                                            <b>Day: </b>
+                                                            {new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                                                        </p>
+                                                        <p>
+                                                            <b>Max temp: </b>
+                                                            {el.maxtemp_c}°C
+                                                        </p>
+                                                        <p>
+                                                            <b>Min temp: </b>
+                                                            {el.mintemp_c}°C
+                                                        </p>
+                                                        <p>
+                                                            <b>Avg temp: </b>
+                                                            {el.avgtemp_c}°C
+                                                        </p>
+                                                        <img src={el.condition.icon}></img>
+                                                        <p>
+                                                            <b>Rain: </b>
+                                                            {el.daily_chance_of_rain} %
+                                                        </p>
+                                                        <p>
+                                                            <b>Snow: </b>
+                                                            {el.daily_will_it_snow} %
+                                                        </p>
+                                                        <p>
+                                                            <b>Humidity: </b>
+                                                            {el.avghumidity} %
+                                                        </p>
+                                                    </Card>
+                                                </Col>
+                                            );
+                                        })}
+                                    </Row>
+                                </Col>
+                            </Row>
                         </>
                     )}
                 </>
