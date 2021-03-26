@@ -47,7 +47,32 @@
 .passengers {
     justify-content: center;
 }
-
+.ticket {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: slategray;
+    color: white;
+    width: 80%;
+    margin: 50px 10%;
+    position: relative;
+}
+.ticketright {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    height: calc(100% - 20px);
+    text-align: right;
+}
+.ticket > .ticketright > .ticketbuttons {
+    opacity: 0;
+    transition: 0.3s all;
+}
+.ticket:hover > .ticketright > .ticketbuttons {
+    opacity: 1;
+}
+.ticketbuttons button {
+    margin: 5px 5px;
+}
 @media only screen and (max-width: 600px) {
     .citycontent {
         padding: 1rem;

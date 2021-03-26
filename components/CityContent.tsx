@@ -28,6 +28,8 @@ const CityContent = (props) => {
     const [address, setAddress] = useState({ name: "", email: "", address1: "", address2: "", city: "", state: "", country: "" });
     const [loadingFlights, setLoadingFlights] = useState(true);
     const [flightResoults, setFlightResoults] = useState<IFlightSearchResoult>([]);
+    const [flightPrice, setFlightPrice] = useState(0);
+
 
     const querryFlights = async () => {
         if (flightTo && flightFrom && flightDeparture && flightQuantity) {
@@ -64,9 +66,6 @@ const CityContent = (props) => {
         setLastCity(props.city);
         setCheckoutFlow("basicInfo");
         setLoading(true);
-    }
-
-    if (checkoutFlow == "reservation") {
     }
 
     let inputTimer;
@@ -141,16 +140,16 @@ const CityContent = (props) => {
                         />
                     </Col>
                 </Form.Row>
-                <Button variant="primary" type="submit" name="reservation" className={styles.submitbutton}>
+                {/* <Button variant="primary" type="submit" name="reservation" className={styles.submitbutton}>
                     Make a reservation
                 </Button>
                 <Button variant="primary" type="submit" name="checkout" className={styles.submitbutton}>
                     Buy flight
-                </Button>
+                </Button> */}
             </Form>
             <hr />
 
-            {loading ? (
+            {loadingFlights ? (
                 <div className="loader">
                     <span></span>
                     <span></span>
@@ -158,8 +157,32 @@ const CityContent = (props) => {
                 </div>
             ) : (
                 <div>
-                    {flightResoults.map((fr, i) => {
-                        return <div></div>;
+                    {flightResoults["flights"]?.map((fr, i) => {
+                        return (
+                            <div key={i} className={`${styles.ticket} bigshadow`}>
+                                <strong>{fr.itineraries[0].segments[0].departure.iataCode} > {fr.itineraries[0].segments[0].arrival.iataCode}</strong>
+                                <div>Departure at {fr.itineraries[0].segments[0].departure.at.replace("T"," ")}</div>
+                                <div>Duration: {fr.itineraries[0].segments[0].duration}</div>
+                                <div className={styles.ticketright}>
+                                    Price: {fr.price.total} {fr.price.currency}
+                                    <div className={styles.ticketbuttons}>
+                                        <Button name="reservation" onClick={()=>{
+                                            setCheckoutFlow('reservation');
+                                            const arr = [];
+                                            for (let i = 0; i < flightQuantity; i++) arr.push({});
+                                            setReservationData([...arr]);
+                                        }}>Make a reservation</Button>
+                                        <Button name="checkout" onClick={()=>{
+                                            setCheckoutFlow('checkout');
+                                            const arr = [];
+                                            for (let i = 0; i < flightQuantity; i++) arr.push({});
+                                            setReservationData([...arr]);
+                                            setFlightPrice(fr.price.total);
+                                        }}>Buy ticket</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        );
                     })}
                 </div>
             )}
@@ -298,7 +321,7 @@ const CityContent = (props) => {
                         ))}
                     </Row>
                     <div className={styles.paypalwrapper}>
-                        <ReactPayPalButton flightId="testFlight" amount={5}></ReactPayPalButton>
+                        <ReactPayPalButton flightId="testFlight" amount={flightQuantity*flightPrice} ></ReactPayPalButton>
                     </div>
                 </>
             )}
