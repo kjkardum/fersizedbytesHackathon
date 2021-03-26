@@ -54,7 +54,7 @@
 .navboxactive {
     transition: 0.3s all;
     width: 180px;
-    height: 175px;
+    height: 90px;
 }
 .navboxicon {
     height: 15px;

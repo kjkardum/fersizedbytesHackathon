@@ -189,7 +189,7 @@ const CityContent = (props) => {
                         ))}
                     </Row>
                     <div className={styles.paypalwrapper}>
-                        <ReactPayPalButton></ReactPayPalButton>
+                        <ReactPayPalButton amount={5}></ReactPayPalButton>
                     </div>
                 </>
             )}

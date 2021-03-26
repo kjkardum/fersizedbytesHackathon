@@ -14,12 +14,12 @@ const NavBar = (props) => {
                     <a className={styles["navbar-item"]} href="/">
                         Home
                     </a>
-                    <a className={styles["navbar-item"]} href="/buy">
+                    {/* <a className={styles["navbar-item"]} href="/buy">
                         Buy Flight
                     </a>
                     <a className={styles["navbar-item"]} href="/reserve">
                         Make a reservation
-                    </a>
+                    </a> */}
                     <a className={styles["navbar-item"]} href="/login">
                         Login
                     </a>
@@ -29,12 +29,12 @@ const NavBar = (props) => {
                         <a className={styles.navboxlink} href="/" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faHome} className={styles.navboxicon}></FontAwesomeIcon> Home
                         </a>
-                        <a className={styles.navboxlink} href="/buy" onClick={() => toggleNavbox(false)}>
+                        {/*<a className={styles.navboxlink} href="/buy" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faPlane} className={styles.navboxicon}></FontAwesomeIcon> Buy tickets
                         </a>
                         <a className={styles.navboxlink} href="/reserve" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faAddressCard} className={styles.navboxicon}></FontAwesomeIcon> Reservations
-                        </a>
+                        </a> */}
                         <a className={styles.navboxlink} href="/login" onClick={() => toggleNavbox(false)}>
                             <FontAwesomeIcon icon={faUser} className={styles.navboxicon}></FontAwesomeIcon> Login
                         </a>
