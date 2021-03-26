@@ -160,9 +160,13 @@ const CityContent = (props) => {
                     {flightResoults["flights"]?.map((fr, i) => {
                         return (
                             <div key={i} className={`${styles.ticket} bigshadow`}>
-                                <strong>{fr.itineraries[0].segments[0].departure.iataCode} > {fr.itineraries[0].segments[0].arrival.iataCode}</strong>
+                                <strong>{fr.itineraries[0].segments[0].departure.iataCode} {fr.itineraries[0].segments.map((i)=>(
+                                    <>
+                                        > {i.arrival.iataCode}
+                                    </>
+                                ))}</strong>
                                 <div>Departure at {fr.itineraries[0].segments[0].departure.at.replace("T"," ")}</div>
-                                <div>Duration: {fr.itineraries[0].segments[0].duration}</div>
+                                <div>Duration: {fr.itineraries[0].duration}</div>
                                 <div className={styles.ticketright}>
                                     Price: {fr.price.total} {fr.price.currency}
                                     <div className={styles.ticketbuttons}>
