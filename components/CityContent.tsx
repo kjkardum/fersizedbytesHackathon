@@ -150,7 +150,7 @@ const CityContent = (props) => {
             )}
             {checkoutFlow == "checkout" && (
                 <>
-                    <Row>
+                    <Row className={styles.passengers}>
                         {reservationData.map((i, item) => (
                             <Col md={2} key={item}>
                                 <FontAwesomeIcon className={styles.usericon} icon={faUser}></FontAwesomeIcon>
