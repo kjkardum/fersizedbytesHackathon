@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styles from "../styles/CityContent.module.css";
 import { Line } from "react-chartjs-2";
-
 import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from "../services/config";
 
+import AutoComplete from "../components/AutoComplete";
+import ReactPayPalButton from "../components/ReactPayPalButton";
 import { Row, Col, Form, Button, FormControl } from "react-bootstrap";
 import { array } from "joi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +14,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const CityContent = (props) => {
     const [temps, setTemps] = useState(new Array(24));
+    const [search, setSearch] = useState("");
     const [flightTo, setFlightTo] = useState(props.city);
     const [flightFrom, setFlightFrom] = useState("");
     const [flightDeparture, setFlightDeparture] = useState("");
@@ -23,6 +25,7 @@ const CityContent = (props) => {
     const [loading, setLoading] = useState(true);
     const [hotelData, setHotelData] = useState([]);
     const [reservationData, setReservationData] = useState([]);
+    const [address, setAddress] = useState({ name: "", email: "", address1: "", address2: "", city: "", state: "", country: "" });
 
     if (props.city && props.city != lastCity) {
         fetch("/api/getDestinationInfo?q=" + props.city)
@@ -43,6 +46,7 @@ const CityContent = (props) => {
         setCheckoutFlow("basicInfo");
         setLoading(true);
     }
+    let inputTimer;
     return (
         <div className={styles.citycontent}>
             <Form
@@ -62,7 +66,26 @@ const CityContent = (props) => {
                 <Form.Row>
                     <Col sm={6}>
                         Location
-                        <Form.Control onInput={(e) => checkoutFlow == "basicInfo" && setFlightFrom(e.target.value)} id="from" size="lg" name="from" placeholder="From" />
+                        <Form.Control
+                            onChange={(e) => {
+                                clearTimeout(inputTimer);
+                                inputTimer = setTimeout(function () {
+                                    setSearch(e.target.value);
+                                }, 50);
+                            }}
+                            autocomplete="off"
+                            onInput={(e) => checkoutFlow == "basicInfo" && setFlightFrom(e.target.value)}
+                            id="flightFromSearch"
+                            size="lg"
+                            name="from"
+                            placeholder="From"
+                        />
+                        <AutoComplete
+                            setCity={(city) => {
+                                setFlightFrom(city);
+                            }}
+                            searchValue={search}
+                        ></AutoComplete>
                     </Col>
                     <Col sm={2}>
                         Departure
@@ -165,51 +188,9 @@ const CityContent = (props) => {
                             </Col>
                         ))}
                     </Row>
-                    <Button>Make a reservation</Button>
-                    <Form>
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridName">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter your first and last name" />
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                            </Form.Group>
-                        </Form.Row>
-
-                        <Form.Group controlId="formGridAddress1">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control placeholder="1234 Main St" />
-                        </Form.Group>
-
-                        <Form.Group controlId="formGridAddress2">
-                            <Form.Label>Address 2</Form.Label>
-                            <Form.Control placeholder="Apartment, studio, or floor" />
-                        </Form.Group>
-
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridCity">
-                                <Form.Label>City</Form.Label>
-                                <Form.Control />
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridState">
-                                <Form.Label>State</Form.Label>
-                                <Form.Control />
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridZip">
-                                <Form.Label>Zip</Form.Label>
-                                <Form.Control />
-                            </Form.Group>
-                        </Form.Row>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
+                    <div className={styles.paypalwrapper}>
+                        <ReactPayPalButton></ReactPayPalButton>
+                    </div>
                 </>
             )}
         </div>

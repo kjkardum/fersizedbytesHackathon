@@ -29,6 +29,12 @@
 .usericon {
     margin-bottom: 1rem;
 }
+.paypalwrapper {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+}
 @media only screen and (max-width: 600px) {
     .citycontent {
         padding: 1rem;
