@@ -30,6 +30,7 @@ class DB {
     tickets: Collection<ITicketOrder>;
     users: Collection<IUser>;
     destinationSearchHistory: Collection<IDestionationSearchHistory>;
+    popularPlaces: Collection<IPopularPlace>;
 
     constructor() {
         var client = new MongoClient(process.env.MONGODB_DB_CONNECTION_STRING);
@@ -47,6 +48,7 @@ class DB {
             this.tickets = db.collection("tickets");
             this.users = db.collection("users");
             this.destinationSearchHistory = db.collection("destinationSearchHistory");
+            this.popularPlaces = db.collection("popularPlaces");
         });
     }
 
@@ -129,9 +131,31 @@ class DB {
 
         return jwt.sign(authCookie, process.env.JWT_SIGN_PRIVATE_KEY, { expiresIn: "60 days" });
     };
+
+    public AddPopularPlace = async (popularPlace: IPopularPlace): Promise<string> => {
+        let res = await this.popularPlaces.insertOne(popularPlace);
+        if (res.result.ok && res.insertedCount == 1) return res.insertedId.toHexString();
+        else return null;
+    };
+
+    public RemovePopularPlace = async (placeId: string): Promise<boolean> => {
+        let res = await this.popularPlaces.deleteOne({ _id: new ObjectId(placeId) });
+        if (res.result.ok && res.deletedCount == 1) return true;
+        return false;
+    };
+
+    public GetPopularPlaces = async (): Promise<Array<IPopularPlace>> => {
+        return await this.popularPlaces.find({}).toArray();
+    };
 }
 
 export const Database = new DB();
+
+interface IPopularPlace {
+    name: string;
+    description: string;
+    image: string;
+}
 
 interface IReservation {
     user: ObjectId;
@@ -163,13 +187,6 @@ interface IDestionationSearchHistory {
     hits: {
         [date: number]: number;
     };
-}
-
-interface IPopularDestination {
-    name: string;
-    image: string;
-    icons: Array<string>;
-    description: string;
 }
 
 interface IUser {
