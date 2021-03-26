@@ -156,7 +156,7 @@ const CityContent = (props) => {
                                 </Col>
                                 <Col>
                                     <Row>
-                                        {temps.stats.map((el, i) => {
+                                        {((temps as any).stats as any).map((el, i) => {
                                             return (
                                                 <Col>
                                                     <Card style={{ padding: "20px", margin: "5px" }}>
